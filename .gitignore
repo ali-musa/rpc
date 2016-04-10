@@ -1,1 +1,12 @@
 GRADELOG*
+pingstreamclient 
+pingstreamserver 
+idldeclarationtst 
+idl_to_json 
+arithmeticclient 
+arithmeticserver 
+simplefunctionclient 
+simplefunctionserver 
+*.o 
+*.json 
+*.pyc
