@@ -180,6 +180,6 @@ idl_to_json: idl_to_json.o $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
 
 # clean up everything we build dynamically (probably missing .cpps from .idl)
 clean:
-	 rm -f pingstreamclient pingstreamserver idldeclarationtst idl_to_json arithmeticclient arithmeticserver simplefunctionclient simplefunctionserver *.o *.json *.pyc
+	 rm -f pingstreamclient pingstreamserver idldeclarationtst idl_to_json arithmeticclient arithmeticserver simplefunctionclient simplefunctionserver *.o *.json *.pyc GRADELOG*
 
 
