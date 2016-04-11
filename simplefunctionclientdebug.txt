@@ -1,27 +1,12 @@
-04/09/2016 20:11:42.979383 ./simplefunctionclient: rpcproxyinitialize: Creating C150StreamSocket
-04/09/2016 20:11:43.028153 ./simplefunctionclient: C150StreamSocket::C150StreamSocket: user port is 7012
-04/09/2016 20:11:43.028206 ./simplefunctionclient: C150StreamSocket::connect(comp150ids-01) called
-04/09/2016 20:11:43.059112 ./simplefunctionclient: simplefunction.proxy.cpp: func1() invoked
-04/09/2016 20:11:43.059180 ./simplefunctionclient: C150StreamSocket::write: attempting to send packet with len=6 |func1.|
-04/09/2016 20:11:43.059281 ./simplefunctionclient: C150StreamSocket::write: Success writing packet with len=6 |func1.|
-04/09/2016 20:11:43.059368 ./simplefunctionclient: simplefunction.proxy.cpp: func1() invocation sent, waiting for response
-04/09/2016 20:11:43.059419 ./simplefunctionclient: C150StreamSocket::read: Ready to read data
-04/09/2016 20:11:43.060372 ./simplefunctionclient: C150StreamSocket::read: Dropped through read with len=5
-04/09/2016 20:11:43.060419 ./simplefunctionclient: C150StreamSocket::read: successful read with len=5 |DONE.|
-04/09/2016 20:11:43.060474 ./simplefunctionclient: simplefunction.proxy.cpp: func1() successful return from remote call
-04/09/2016 20:11:43.060535 ./simplefunctionclient: simplefunction.proxy.cpp: func2() invoked
-04/09/2016 20:11:43.060587 ./simplefunctionclient: C150StreamSocket::write: attempting to send packet with len=6 |func2.|
-04/09/2016 20:11:43.060678 ./simplefunctionclient: C150StreamSocket::write: Success writing packet with len=6 |func2.|
-04/09/2016 20:11:43.060722 ./simplefunctionclient: simplefunction.proxy.cpp: func2() invocation sent, waiting for response
-04/09/2016 20:11:43.060766 ./simplefunctionclient: C150StreamSocket::read: Ready to read data
-04/09/2016 20:11:43.061514 ./simplefunctionclient: C150StreamSocket::read: Dropped through read with len=5
-04/09/2016 20:11:43.061560 ./simplefunctionclient: C150StreamSocket::read: successful read with len=5 |DONE.|
-04/09/2016 20:11:43.061603 ./simplefunctionclient: simplefunction.proxy.cpp: func2() successful return from remote call
-04/09/2016 20:11:43.061658 ./simplefunctionclient: simplefunction.proxy.cpp: func3() invoked
-04/09/2016 20:11:43.061709 ./simplefunctionclient: C150StreamSocket::write: attempting to send packet with len=6 |func3.|
-04/09/2016 20:11:43.061800 ./simplefunctionclient: C150StreamSocket::write: Success writing packet with len=6 |func3.|
-04/09/2016 20:11:43.061845 ./simplefunctionclient: simplefunction.proxy.cpp: func3() invocation sent, waiting for response
-04/09/2016 20:11:43.061887 ./simplefunctionclient: C150StreamSocket::read: Ready to read data
-04/09/2016 20:11:43.062631 ./simplefunctionclient: C150StreamSocket::read: Dropped through read with len=5
-04/09/2016 20:11:43.062678 ./simplefunctionclient: C150StreamSocket::read: successful read with len=5 |DONE.|
-04/09/2016 20:11:43.062721 ./simplefunctionclient: simplefunction.proxy.cpp: func3() successful return from remote call
+04/11/2016 00:44:38.269777 ./arithmeticclient: rpcproxyinitialize: Creating C150StreamSocket
+04/11/2016 00:44:38.271054 ./arithmeticclient: C150StreamSocket::C150StreamSocket: user port is 7034
+04/11/2016 00:44:38.271073 ./arithmeticclient: C150StreamSocket::connect(comp150ids-01) called
+04/11/2016 00:44:38.272688 ./arithmeticclient: C150StreamSocket::write: attempting to send packet with len=4 |add.|
+04/11/2016 00:44:38.272733 ./arithmeticclient: C150StreamSocket::write: Success writing packet with len=4 |add.|
+04/11/2016 00:44:38.272754 ./arithmeticclient: C150StreamSocket::write: attempting to send packet with len=4 |.MF.|
+04/11/2016 00:44:38.272774 ./arithmeticclient: C150StreamSocket::write: Success writing packet with len=4 |.MF.|
+04/11/2016 00:44:38.272822 ./arithmeticclient: C150StreamSocket::write: attempting to send packet with len=4 |.MF.|
+04/11/2016 00:44:38.272862 ./arithmeticclient: C150StreamSocket::write: Success writing packet with len=4 |.MF.|
+04/11/2016 00:44:38.272883 ./arithmeticclient: C150StreamSocket::read: Ready to read data
+04/11/2016 00:44:38.273398 ./arithmeticclient: C150StreamSocket::read: Dropped through read with len=4
+04/11/2016 00:44:38.273417 ./arithmeticclient: C150StreamSocket::read: successful read with len=4 |.MF.|

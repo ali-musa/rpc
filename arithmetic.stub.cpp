@@ -49,6 +49,55 @@
 #include <string>
 using namespace C150NETWORK;  // for all the comp150 utilities 
 
+ 
+
+int bytesToInt(unsigned char* b, unsigned length)
+{
+
+    int val = 0;
+
+    int j = 0;
+
+    for (int i = length-1; i >= 0; --i)
+
+    {
+
+        val += (b[i] & 0xFF) << (8*j);
+
+        ++j;
+
+    }
+
+ 
+
+    return val;
+
+}
+
+void send_int(int int_val)
+{
+  char int_buf[sizeof(int)];
+  memcpy(&int_val,int_buf,sizeof(int));
+  RPCSTUBSOCKET->write(int_buf,sizeof(int)); // send size of int
+}
+
+void recv_int(int* int_ptr)
+{
+  ssize_t readlen=0;             // amount of data read from socket
+  unsigned char int_buf[sizeof(int)];
+
+  while(readlen!=sizeof(int))
+  { 
+    readlen+=RPCSTUBSOCKET->read(int_buf[readlen],sizeof(int)); // read size of int
+  }
+
+  int a = bytesToInt((unsigned char*)int_buf,sizeof(int));
+  int_ptr= &a;
+  printf("Read int:%i\n",a);
+  // memcpy(int_buf,int_ptr,sizeof(int));
+  // int_ptr = (int*) int_buf;
+}
+
 int getFunctionNamefromStream();
 
 // ======================================================================
@@ -73,10 +122,16 @@ void __add() {
   //
   // Time to actually call the function 
   //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking add()");
-  int return_val = add();
+  // c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking add()");
+  int x;
+  int y;
+  recv_int(&x);
+  recv_int(&y);
+  printf("Recv'd x: %i\ty:%i\n",x,y );
+  int ret_val = add(x,y);
+  send_int(ret_val);
 
-  string return_val_str = to_string(return_val);
+  // string return_val_str = to_string(return_val);
   //
   // Send the response to the client
   //
@@ -84,67 +139,67 @@ void __add() {
   // where we'd send the return value back.
   //
 
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  add() -- responding to client");
-  RPCSTUBSOCKET->write(return_val_str, strlen(return_val_str)+1);
+  // c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  add() -- responding to client");
+  // RPCSTUBSOCKET->write(return_val_str, strlen(return_val_str)+1);
 }
 
-void __subtract() {
-  char doneBuffer[5] = "DONE";  // to write magic value DONE + null
+// void __subtract() {
+//   char doneBuffer[5] = "DONE";  // to write magic value DONE + null
 
-  //
-  // Time to actually call the function 
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking subtract()");
-  subtract();
+//   //
+//   // Time to actually call the function 
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking subtract()");
+//   subtract();
 
-  //
-  // Send the response to the client
-  //
-  // If subtract returned something other than void, this is
-  // where we'd send the return value back.
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  subtract() -- responding to client");
-  RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
-}
+//   //
+//   // Send the response to the client
+//   //
+//   // If subtract returned something other than void, this is
+//   // where we'd send the return value back.
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  subtract() -- responding to client");
+//   RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
+// }
 
-void __multiply() {
-  char doneBuffer[5] = "DONE";  // to write magic value DONE + null
+// void __multiply() {
+//   char doneBuffer[5] = "DONE";  // to write magic value DONE + null
 
-  //
-  // Time to actually call the function 
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking multiply()");
-  multiply();
+//   //
+//   // Time to actually call the function 
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking multiply()");
+//   multiply();
 
-  //
-  // Send the response to the client
-  //
-  // If multiply returned something other than void, this is
-  // where we'd send the return value back.
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  multiply() -- responding to client");
-  RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
-}
+//   //
+//   // Send the response to the client
+//   //
+//   // If multiply returned something other than void, this is
+//   // where we'd send the return value back.
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  multiply() -- responding to client");
+//   RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
+// }
 
 
-void __divide() {
-  char doneBuffer[5] = "DONE";  // to write magic value DONE + null
+// void __divide() {
+//   char doneBuffer[5] = "DONE";  // to write magic value DONE + null
 
-  //
-  // Time to actually call the function 
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking divide()");
-  divide();
+//   //
+//   // Time to actually call the function 
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking divide()");
+//   divide();
 
-  //
-  // Send the response to the client
-  //
-  // If divide returned something other than void, this is
-  // where we'd send the return value back.
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  divide() -- responding to client");
-  RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
-}
+//   //
+//   // Send the response to the client
+//   //
+//   // If divide returned something other than void, this is
+//   // where we'd send the return value back.
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: returned from  divide() -- responding to client");
+//   RPCSTUBSOCKET->write(doneBuffer, strlen(doneBuffer)+1);
+// }
 
 
 //
@@ -204,12 +259,12 @@ void dispatchFunction() {
   if (!RPCSTUBSOCKET-> eof()) {
     if (strcmp(functionNameBuffer,"add") == 0)
       __add();
-    else   if (strcmp(functionNameBuffer,"substract") == 0)
-      __subtract();
-    else   if (strcmp(functionNameBuffer,"multiply") == 0)
-      __multiply();
-    else   if (strcmp(functionNameBuffer,"divide") == 0)
-      __divide();
+    // else   if (strcmp(functionNameBuffer,"substract") == 0)
+    //   __subtract();
+    // else   if (strcmp(functionNameBuffer,"multiply") == 0)
+    //   __multiply();
+    // else   if (strcmp(functionNameBuffer,"divide") == 0)
+    //   __divide();
     else
       __badFunction(functionNameBuffer);
   }

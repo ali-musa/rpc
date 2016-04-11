@@ -36,96 +36,122 @@
 using namespace C150NETWORK;  // for all the comp150 utilities 
 
 
+void send_function_name(const char* fname)
+{
+  RPCPROXYSOCKET->write(fname,strlen(fname)+1); //make sure it is null term
+}
+
+void send_int(int int_val)
+{
+  char int_buf[sizeof(int)];
+  memcpy(&int_val,int_buf,sizeof(int));
+  RPCPROXYSOCKET->write(int_buf,sizeof(int)); // send size of int
+}
+
+void recv_int(int* int_ptr)
+{
+  char int_buf[sizeof(int)];
+  RPCPROXYSOCKET->read(int_buf,sizeof(int)); // read size of int
+  // memcpy(int_buf,int_ptr,sizeof(int));
+  int_ptr = (int*) int_buf;
+}
+
 int add(int x, int y) {
-  char readBuffer[5];  // to read magic value DONE + null
+  // char readBuffer[5];  // to read magic value DONE + null
   //
   // Send the Remote Call
   //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) invoked");
-  RPCPROXYSOCKET->write("add", strlen("add")+1); // write function name including null
+  // c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) invoked");
+  send_function_name("add");
+  send_int(x);
+  send_int(y);
+  int ret_val;
+  recv_int(&ret_val);
+  printf("Recv'd val: %i\n",ret_val );
+  return ret_val;
   //
   // Read the response
   //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
+  // // c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) invocation sent, waiting for response");
+  // // RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
 
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("arithmetic.proxy: add(int x, int y) received invalid response from the server");
-  }
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) successful return from remote call");
-  return 1;
+  // //
+  // // Check the response
+  // //
+  // if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
+  //   throw C150Exception("arithmetic.proxy: add(int x, int y) received invalid response from the server");
+  // }
+  // c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) successful return from remote call");
+  // return 1;
 }
 
 
-int subtract(int x, int y) {
-  char readBuffer[5];  // to read magic value DONE + null
-  //
-  // Send the Remote Call
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() invoked");
-  RPCPROXYSOCKET->write("subtract(int x, int y)", strlen("subtract(int x, int y)")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
+// int subtract(int x, int y) {
+//   char readBuffer[5];  // to read magic value DONE + null
+//   //
+//   // Send the Remote Call
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() invoked");
+//   RPCPROXYSOCKET->write("subtract(int x, int y)", strlen("subtract(int x, int y)")+1); // write function name including null
+//   //
+//   // Read the response
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() invocation sent, waiting for response");
+//   RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
 
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("arithmetic.proxy: subtract(int x, int y)() received invalid response from the server");
-  }
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() successful return from remote call");
-  return 1;
-}
+//   //
+//   // Check the response
+//   //
+//   if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
+//     throw C150Exception("arithmetic.proxy: subtract(int x, int y)() received invalid response from the server");
+//   }
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: subtract(int x, int y)() successful return from remote call");
+//   return 1;
+// }
 
 
-int multiply(int x, int y) {
-  char readBuffer[5];  // to read magic value DONE + null
-  //
-  // Send the Remote Call
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() invoked");
-  RPCPROXYSOCKET->write("multiply(int x, int y)", strlen("multiply(int x, int y)")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
+// int multiply(int x, int y) {
+//   char readBuffer[5];  // to read magic value DONE + null
+//   //
+//   // Send the Remote Call
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() invoked");
+//   RPCPROXYSOCKET->write("multiply(int x, int y)", strlen("multiply(int x, int y)")+1); // write function name including null
+//   //
+//   // Read the response
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() invocation sent, waiting for response");
+//   RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
 
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("arithmetic.proxy: multiply(int x, int y)() received invalid response from the server");
-  }
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() successful return from remote call");
-  return 1;
-}
+//   //
+//   // Check the response
+//   //
+//   if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
+//     throw C150Exception("arithmetic.proxy: multiply(int x, int y)() received invalid response from the server");
+//   }
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: multiply(int x, int y)() successful return from remote call");
+//   return 1;
+// }
 
-int divide(int x, int y) {
-  char readBuffer[5];  // to read magic value DONE + null
-  //
-  // Send the Remote Call
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() invoked");
-  RPCPROXYSOCKET->write("divide(int x, int y)", strlen("divide(int x, int y)")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
+// int divide(int x, int y) {
+//   char readBuffer[5];  // to read magic value DONE + null
+//   //
+//   // Send the Remote Call
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() invoked");
+//   RPCPROXYSOCKET->write("divide(int x, int y)", strlen("divide(int x, int y)")+1); // write function name including null
+//   //
+//   // Read the response
+//   //
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() invocation sent, waiting for response");
+//   RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
 
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("arithmetic.proxy: divide(int x, int y)() received invalid response from the server");
-  }
-  c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() successful return from remote call");
-  return 1;
-}
+//   //
+//   // Check the response
+//   //
+//   if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
+//     throw C150Exception("arithmetic.proxy: divide(int x, int y)() received invalid response from the server");
+//   }
+//   c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: divide(int x, int y)() successful return from remote call");
+//   return 1;
+// }
