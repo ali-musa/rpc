@@ -35,6 +35,18 @@
 
 using namespace C150NETWORK;  // for all the comp150 utilities 
 
+void print_bytes(const void *object, size_t size)
+{
+  size_t i;
+
+  printf("[ ");
+  for(i = 0; i < size; i++)
+  {
+    printf("%02x ", ((const unsigned char *) object)[i] & 0xff);
+  }
+  printf("]\n");
+}
+
 
 void send_function_name(const char* fname)
 {
@@ -43,18 +55,24 @@ void send_function_name(const char* fname)
 
 void send_int(int int_val)
 {
-  char int_buf[sizeof(int)];
-  memcpy(&int_val,int_buf,sizeof(int));
-  RPCPROXYSOCKET->write(int_buf,sizeof(int)); // send size of int
+  int_val = htonl(int_val); // convert to network order
+  RPCPROXYSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int
 }
+
 
 void recv_int(int* int_ptr)
 {
+  ssize_t readlen=0;             // amount of data read from socket
   char int_buf[sizeof(int)];
-  RPCPROXYSOCKET->read(int_buf,sizeof(int)); // read size of int
-  // memcpy(int_buf,int_ptr,sizeof(int));
-  int_ptr = (int*) int_buf;
+
+  while(readlen!=sizeof(int))
+  { 
+    readlen+=RPCPROXYSOCKET->read(int_buf+readlen,sizeof(int)); // read size of int
+  }
+
+  *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
+
 
 int add(int x, int y) {
   // char readBuffer[5];  // to read magic value DONE + null
@@ -62,13 +80,19 @@ int add(int x, int y) {
   // Send the Remote Call
   //
   // c150debug->printf(C150RPCDEBUG,"arithmetic.proxy.cpp: add(int x, int y) invoked");
+ 
+  //send function name
   send_function_name("add");
+  //sent input args
   send_int(x);
   send_int(y);
+  //init return args
   int ret_val;
+  //recv return args
   recv_int(&ret_val);
-  printf("Recv'd val: %i\n",ret_val );
+  //return recvd args
   return ret_val;
+ 
   //
   // Read the response
   //

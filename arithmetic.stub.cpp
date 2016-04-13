@@ -51,51 +51,59 @@ using namespace C150NETWORK;  // for all the comp150 utilities
 
  
 
-int bytesToInt(unsigned char* b, unsigned length)
-{
+// int bytesToInt(unsigned char* b, unsigned length)
+// {
 
-    int val = 0;
+//     int val = 0;
 
-    int j = 0;
+//     int j = 0;
 
-    for (int i = length-1; i >= 0; --i)
+//     for (int i = length-1; i >= 0; --i)
 
-    {
+//     {
 
-        val += (b[i] & 0xFF) << (8*j);
+//         val += (b[i] & 0xFF) << (8*j);
 
-        ++j;
+//         ++j;
 
-    }
+//     }
 
  
 
-    return val;
+//     return val;
 
+// }
+
+void print_bytes(const void *object, size_t size)
+{
+  size_t i;
+
+  printf("[ ");
+  for(i = 0; i < size; i++)
+  {
+    printf("%02x ", ((const unsigned char *) object)[i] & 0xff);
+  }
+  printf("]\n");
 }
 
 void send_int(int int_val)
 {
-  char int_buf[sizeof(int)];
-  memcpy(&int_val,int_buf,sizeof(int));
-  RPCSTUBSOCKET->write(int_buf,sizeof(int)); // send size of int
+  int_val = htonl(int_val); // convert to network order
+  RPCSTUBSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int
 }
+
+
 
 void recv_int(int* int_ptr)
 {
   ssize_t readlen=0;             // amount of data read from socket
-  unsigned char int_buf[sizeof(int)];
+  char int_buf[sizeof(int)];
 
   while(readlen!=sizeof(int))
   { 
-    readlen+=RPCSTUBSOCKET->read(int_buf[readlen],sizeof(int)); // read size of int
+    readlen+=RPCSTUBSOCKET->read(int_buf+readlen,sizeof(int)); // read size of int
   }
-
-  int a = bytesToInt((unsigned char*)int_buf,sizeof(int));
-  int_ptr= &a;
-  printf("Read int:%i\n",a);
-  // memcpy(int_buf,int_ptr,sizeof(int));
-  // int_ptr = (int*) int_buf;
+  *int_ptr = ntohl(*((int*)(&int_buf)));
 }
 
 int getFunctionNamefromStream();
@@ -123,12 +131,16 @@ void __add() {
   // Time to actually call the function 
   //
   // c150debug->printf(C150RPCDEBUG,"arithmetic.stub.cpp: invoking add()");
+  
+  //init input args
   int x;
   int y;
+  //recv input args
   recv_int(&x);
   recv_int(&y);
-  printf("Recv'd x: %i\ty:%i\n",x,y );
+  //init return args
   int ret_val = add(x,y);
+  //send retrun args
   send_int(ret_val);
 
   // string return_val_str = to_string(return_val);
