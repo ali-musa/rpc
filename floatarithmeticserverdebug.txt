@@ -1,0 +1,93 @@
+04/13/2016 22:07:03.379642 ./floatarithmeticserver: rpcstubinitialize: Creating C150StreamSocket
+04/13/2016 22:07:03.408873 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:16.280326 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:16.280423 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:16.280478 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:16.280526 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:16.280576 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:16.280625 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:16.280777 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:16.280883 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:16.283513 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:16.283556 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:16.283597 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:16.283638 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:16.283767 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:20.386888 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:20.386952 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:20.387001 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:20.387048 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:20.387158 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:20.387214 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:20.387303 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:20.387435 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:20.390156 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:20.390200 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:20.390245 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:20.390286 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:20.390470 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:21.126160 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:21.126187 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:21.126230 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:21.126254 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:21.126284 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:21.126306 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:21.126345 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:21.126391 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:21.128425 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:21.128442 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:21.128459 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:21.128483 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:21.128534 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:21.911376 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:21.911438 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:21.911463 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:21.911483 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:21.911504 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:21.911524 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:21.911562 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:21.911604 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:21.914428 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:21.914446 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:21.914463 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:21.914479 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:21.914522 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:23.134802 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:23.134825 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:23.134845 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:23.134865 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:23.134885 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:23.134904 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:23.134945 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:23.134985 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:23.137065 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:23.137083 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:23.137099 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:23.137116 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:23.137169 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:23.790477 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:23.790504 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:23.790524 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:23.790543 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:23.790563 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:23.790583 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:23.790620 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:23.790659 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:23.792501 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:23.792519 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:23.792536 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:23.792553 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:23.792601 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 22:07:24.492244 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 22:07:24.492309 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:24.492333 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 22:07:24.492353 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 22:07:24.492373 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 22:07:24.492392 ./floatarithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 22:07:24.492433 ./floatarithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |..XA|
+04/13/2016 22:07:24.492471 ./floatarithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |..XA|
+04/13/2016 22:07:24.495055 ./floatarithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 22:07:24.495074 ./floatarithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 22:07:24.495090 ./floatarithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 22:07:24.495107 ./floatarithmeticserver: Calling C150StreamSocket::close
+04/13/2016 22:07:24.495159 ./floatarithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept

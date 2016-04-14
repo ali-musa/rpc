@@ -146,6 +146,16 @@ Person findPerson(ThreePeople* tp)
 	
 }
 
+
+struct __attribute__((__packed__)) header {
+	unsigned short a;
+	char b[20];
+	char c[20];
+	unsigned int d;
+	unsigned int e; 
+
+};
+
 //............................................................
 
 

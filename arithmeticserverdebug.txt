@@ -1,0 +1,119 @@
+04/13/2016 11:22:37.298850 ./arithmeticserver: rpcstubinitialize: Creating C150StreamSocket
+04/13/2016 11:22:37.301706 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:41.026221 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:41.026320 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:41.026492 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:41.026562 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:41.026612 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:41.026669 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:41.026730 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:41.026865 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:41.029722 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:41.029767 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:41.029809 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:41.029849 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:41.029989 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:54.297469 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:54.297600 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:54.297657 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:54.297707 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:54.297759 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:54.297808 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:54.297865 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:54.297962 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:54.313119 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:54.313194 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:54.313240 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:54.313281 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:54.313394 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:55.425738 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:55.425798 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:55.425818 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:55.425837 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:55.425887 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:55.425906 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:55.425930 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:55.425979 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:55.427714 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:55.427731 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:55.427748 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:55.427764 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:55.427818 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:56.262747 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:56.262779 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:56.262808 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:56.262828 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:56.262848 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:56.262867 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:56.262892 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:56.262945 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:56.265113 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:56.265132 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:56.265149 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:56.265165 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:56.265219 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:56.866572 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:56.866628 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:56.866649 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:56.866670 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:56.866692 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:56.866713 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:56.866739 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:56.866788 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:56.869024 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:56.869044 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:56.869062 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:56.869079 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:56.869165 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:57.353558 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:57.353620 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:57.353640 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:57.353660 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:57.353681 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:57.353701 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:57.353725 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:57.353785 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:57.355433 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:57.355451 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:57.355467 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:57.355484 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:57.355559 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:58.137134 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:58.137164 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:58.137183 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:58.137217 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:58.137239 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:58.137258 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:58.137283 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:58.137331 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:58.139193 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:58.139211 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:58.139228 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:58.139244 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:58.139297 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:22:58.858321 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:22:58.858483 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:58.858593 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:22:58.858655 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:22:58.858708 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:22:58.858757 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:22:58.858813 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:22:58.858910 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:22:58.861578 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:22:58.861623 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:22:58.861697 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:22:58.861753 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:22:58.861876 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/13/2016 11:23:00.383599 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |a|
+04/13/2016 11:23:00.383733 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:23:00.383848 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |d|
+04/13/2016 11:23:00.383913 ./arithmeticserver: C150StreamSocket::read: successful read with len=1 |.|
+04/13/2016 11:23:00.383965 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |.. A|
+04/13/2016 11:23:00.384015 ./arithmeticserver: C150StreamSocket::read: successful read with len=4 |..`@|
+04/13/2016 11:23:00.384076 ./arithmeticserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/13/2016 11:23:00.384211 ./arithmeticserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/13/2016 11:23:00.387308 ./arithmeticserver: arithmetic.stub: read zero length message, checking EOF
+04/13/2016 11:23:00.387355 ./arithmeticserver: arithmetic.stub: EOF signaled on input
+04/13/2016 11:23:00.387398 ./arithmeticserver: rpcserver.cpp: EOF signaled on input
+04/13/2016 11:23:00.387439 ./arithmeticserver: Calling C150StreamSocket::close
+04/13/2016 11:23:00.387548 ./arithmeticserver: rpcserver.cpp:calling C150StreamSocket::accept

@@ -46,33 +46,8 @@
 #include <cstdio>
 #include <cstring>
 #include "c150debug.h"
-#include <string>
+
 using namespace C150NETWORK;  // for all the comp150 utilities 
-
- 
-
-// int bytesToInt(unsigned char* b, unsigned length)
-// {
-
-//     int val = 0;
-
-//     int j = 0;
-
-//     for (int i = length-1; i >= 0; --i)
-
-//     {
-
-//         val += (b[i] & 0xFF) << (8*j);
-
-//         ++j;
-
-//     }
-
- 
-
-//     return val;
-
-// }
 
 void print_bytes(const void *object, size_t size)
 {
@@ -101,12 +76,12 @@ void recv_int(int* int_ptr)
 
   while(readlen!=sizeof(int))
   { 
-    readlen+=RPCSTUBSOCKET->read(int_buf+readlen,sizeof(int)); // read size of int
+    readlen+=RPCSTUBSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int
   }
   *int_ptr = ntohl(*((int*)(&int_buf)));
 }
 
-int getFunctionNamefromStream();
+void getFunctionNamefromStream();
 
 // ======================================================================
 //                             STUBS

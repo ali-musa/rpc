@@ -22,7 +22,7 @@ abort "#{$PROGRAM_NAME}: #{filename} not readable" if not File.readable? filenam
 #
 #     Parse declarations into Ruby hash
 #
-json_string =`idl_to_json #{filename}`
+json_string =`./idl_to_json #{filename}`
 abort "#{$PROGRAM_NAME}: Failed to parse IDL file #{filename}" if $? != 0
 decls =  JSON.parse(json_string)
 

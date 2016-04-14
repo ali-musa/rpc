@@ -67,7 +67,7 @@ void recv_int(int* int_ptr)
 
   while(readlen!=sizeof(int))
   { 
-    readlen+=RPCPROXYSOCKET->read(int_buf+readlen,sizeof(int)); // read size of int
+    readlen+=RPCPROXYSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int
   }
 
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast

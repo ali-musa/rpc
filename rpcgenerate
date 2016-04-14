@@ -32,13 +32,11 @@ try:
 	#
 	decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
 
+
 	# #
 	# # Loop printing each function signature
 	# #
-
-		
-	for  fname, fsig in decls["functions"].iteritems():
-		
+	for  fname, fsig in decls["functions"].iteritems(): 
 		
 		# Python Array of all args (each is a hash with keys "name" and "type")
 		args = fsig["arguments"]
@@ -49,13 +47,47 @@ try:
 		argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
 
 		# print the function signature
-		print "%s %s(%s)" % (fsig["return_type"], name, argstring)
+		print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
 		# break
 
-	for  tname, ttype in decls["functions"].iteritems():
+	# for  tname, ttype in decls["functions"].iteritems():
 
 	
 
 except Exception as e:
 	print >> sys.stderr, "Usage: %s <idlfilename>" % sys.argv[0]
+
+
+
+
+
+
+#
+#		 init_proxy(proxy)
+#
+# takes in a proxy string and idlfilename
+# and initializes it with the relevant includes
+#
+def init_proxy(proxy, idlfilename):
+	raise NotImplementedError
+
+#
+#		 init_stub(stub)
+#
+# takes in a stub string and idlfilename
+# and initializes it with the relevant includes
+#
+def init_stub(stub, idlfilename):
+	raise NotImplementedError
+
+
+#
+#		 make_send_recv(type, proxy, stub)
+#
+# takes in a type string, proxy string and stub sting 
+# and makes the send and receive for the type in both the proxy and stub
+#
+def make_send_recv(type, proxy, stub):
+	raise NotImplementedError
+
 

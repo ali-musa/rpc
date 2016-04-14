@@ -122,23 +122,23 @@ main(int argc, char *argv[]) {
        // 
        // Call (possibly remote) subtract
        //
-       printf("Calling subtract(10.0,3.5)\n");
-       result = subtract(10.0,3.5);                          // remote call (we hope!)
-       printf("Returned from subtract(10.0,3.5). Result=%f\n",result);
+       // printf("Calling subtract(10.0,3.5)\n");
+       // result = subtract(10.0,3.5);                          // remote call (we hope!)
+       // printf("Returned from subtract(10.0,3.5). Result=%f\n",result);
 
-       // 
-       // Call (possibly remote) multiply
-       //
-       printf("Calling multiply(10.0,3.5)\n");
-       result = multiply(10.0,3.5);                          // remote call (we hope!)
-       printf("Returned from multiply(10.0,3.5). Result=%f\n",result);
+       // // 
+       // // Call (possibly remote) multiply
+       // //
+       // printf("Calling multiply(10.0,3.5)\n");
+       // result = multiply(10.0,3.5);                          // remote call (we hope!)
+       // printf("Returned from multiply(10.0,3.5). Result=%f\n",result);
 
-       // 
-       // Call (possibly remote) divide
-       //
-       printf("Calling divide(10.0,3.5)\n");
-       result = divide(10.0,3.5);                          // remote call (we hope!)
-       printf("Returned from divide(10.0,3.5). Result=%f\n",result);
+       // // 
+       // // Call (possibly remote) divide
+       // //
+       // printf("Calling divide(10.0,3.5)\n");
+       // result = divide(10.0,3.5);                          // remote call (we hope!)
+       // printf("Returned from divide(10.0,3.5). Result=%f\n",result);
 
 
      }
