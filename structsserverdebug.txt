@@ -1,0 +1,464 @@
+04/16/2016 19:39:24.360635 ./structsserver: rpcstubinitialize: Creating C150StreamSocket
+04/16/2016 19:39:24.415745 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:30.350402 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:30.350465 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:30.350518 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:30.350571 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:30.350624 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:30.350750 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:30.350811 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:30.350880 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:30.351052 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:30.352564 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:30.352615 ./structsserver: EOF signaled on input
+04/16/2016 19:39:30.352662 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:30.352709 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:30.352834 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:35.619494 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:35.619521 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:35.619542 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:35.619563 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:35.619585 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:35.619619 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:35.619641 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:35.619669 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:35.619720 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:35.621010 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:35.621031 ./structsserver: EOF signaled on input
+04/16/2016 19:39:35.621050 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:35.621089 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:35.621145 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:37.291183 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:37.291209 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:37.291232 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:37.291254 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:37.291275 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:37.291310 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:37.291332 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:37.291359 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:37.291447 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:37.292564 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:37.292584 ./structsserver: EOF signaled on input
+04/16/2016 19:39:37.292603 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:37.292622 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:37.292685 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:37.938455 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:37.938479 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:37.938500 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:37.938521 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:37.938542 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:37.938577 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:37.938598 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:37.938624 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:37.938691 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:37.940049 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:37.940069 ./structsserver: EOF signaled on input
+04/16/2016 19:39:37.940089 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:37.940129 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:37.940234 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:38.367842 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.367928 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:38.367982 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:38.368034 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.368088 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:38.368168 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.368224 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.368286 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:38.368588 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:38.370256 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:38.370307 ./structsserver: EOF signaled on input
+04/16/2016 19:39:38.370354 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:38.370424 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:38.370656 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:38.717931 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.717990 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:38.718150 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:38.718203 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.718258 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:38.718328 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.718383 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.718441 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:38.718546 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:38.720008 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:38.720087 ./structsserver: EOF signaled on input
+04/16/2016 19:39:38.720135 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:38.720182 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:38.720292 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:38.989182 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.989306 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:38.989365 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:38.989418 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:38.989472 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:38.989543 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.989599 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:38.989656 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:38.989761 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:38.991140 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:38.991193 ./structsserver: EOF signaled on input
+04/16/2016 19:39:38.991240 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:38.991313 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:38.991427 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:39.237922 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.238048 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:39.238113 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:39.238197 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.238258 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:39.238328 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.238383 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.238440 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:39.238544 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:39.240046 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:39.240096 ./structsserver: EOF signaled on input
+04/16/2016 19:39:39.240164 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:39.240218 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:39.240322 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:39.496697 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.496833 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:39.496917 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:39.496971 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.497025 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:39.497094 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.497149 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.497206 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:39.497352 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:39.498920 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:39.498970 ./structsserver: EOF signaled on input
+04/16/2016 19:39:39.499018 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:39.499065 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:39.499167 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:39.734944 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.735059 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:39.735123 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:39.735201 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.735272 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:39.735345 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.735401 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.735461 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:39.735565 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:39.737138 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:39.737188 ./structsserver: EOF signaled on input
+04/16/2016 19:39:39.737235 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:39.737282 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:39.737395 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:39.989820 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.989882 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:39.989931 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:39.989978 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:39.990025 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:39.990108 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.990158 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:39.990211 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:39.990417 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:39.992067 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:39.992111 ./structsserver: EOF signaled on input
+04/16/2016 19:39:39.992153 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:39.992195 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:39.992377 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:40.262657 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.262775 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:40.262822 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:40.262869 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.262917 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:40.262986 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.263034 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.263088 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:40.263284 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:40.264725 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:40.264770 ./structsserver: EOF signaled on input
+04/16/2016 19:39:40.264814 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:40.264856 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:40.264948 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:40.517743 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.517844 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:40.517896 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:40.517943 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.518037 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:40.518100 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.518150 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.518204 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:40.518338 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:40.519966 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:40.520054 ./structsserver: EOF signaled on input
+04/16/2016 19:39:40.520139 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:40.520221 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:40.520392 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:40.757242 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.757374 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:40.757423 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:40.757470 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:40.757519 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:40.757583 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.757632 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:40.757684 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:40.757796 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:40.759489 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:40.759533 ./structsserver: EOF signaled on input
+04/16/2016 19:39:40.759574 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:40.759616 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:40.759728 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:41.048386 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.048452 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:41.048500 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:41.048548 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.048597 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:41.048659 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.048708 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.048760 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:41.048853 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:41.050534 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:41.050580 ./structsserver: EOF signaled on input
+04/16/2016 19:39:41.050622 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:41.050664 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:41.050766 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:41.303862 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.303972 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:41.304029 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:41.304077 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.304126 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:41.304228 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.304294 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.304347 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:41.304439 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:41.305668 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:41.305714 ./structsserver: EOF signaled on input
+04/16/2016 19:39:41.305758 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:41.305802 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:41.305898 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:41.568354 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.568498 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:41.568562 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:41.568611 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.568662 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:41.568760 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.568818 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.568872 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:41.568971 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:41.570503 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:41.570592 ./structsserver: EOF signaled on input
+04/16/2016 19:39:41.570675 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:41.570766 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:41.570902 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:41.813744 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.813809 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:41.813859 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:41.813911 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:41.813961 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:41.814099 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.814161 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:41.814215 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:41.814326 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:41.815950 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:41.815998 ./structsserver: EOF signaled on input
+04/16/2016 19:39:41.816067 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:41.816114 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:41.816275 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:42.072649 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.072714 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:42.072764 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:42.072813 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.072862 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:42.072933 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.072984 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.073064 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:42.073174 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:42.074647 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:42.074691 ./structsserver: EOF signaled on input
+04/16/2016 19:39:42.074734 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:42.074776 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:42.074933 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:42.320479 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.320659 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:42.320707 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:42.320754 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.320802 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:42.320864 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.320913 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.320963 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:42.321076 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:42.322764 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:42.322808 ./structsserver: EOF signaled on input
+04/16/2016 19:39:42.322851 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:42.322892 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:42.323005 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:42.550388 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.550457 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:42.550505 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:42.550552 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.550600 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:42.550664 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.550713 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.550765 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:42.550860 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:42.552297 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:42.552344 ./structsserver: EOF signaled on input
+04/16/2016 19:39:42.552388 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:42.552431 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:42.552528 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:42.766123 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.766262 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:42.766341 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:42.766388 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.766437 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:42.766501 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.766550 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.766603 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:42.766712 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:42.768367 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:42.768414 ./structsserver: EOF signaled on input
+04/16/2016 19:39:42.768457 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:42.768499 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:42.768605 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:42.982205 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.982274 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:42.982322 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:42.982369 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:42.982418 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:42.982484 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.982533 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:42.982585 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:42.982696 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:42.984286 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:42.984331 ./structsserver: EOF signaled on input
+04/16/2016 19:39:42.984373 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:42.984414 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:42.984526 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:43.205730 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.205896 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:43.205946 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:43.205993 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.206042 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:43.206105 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.206155 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.206207 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:43.206319 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:43.207812 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:43.207856 ./structsserver: EOF signaled on input
+04/16/2016 19:39:43.207898 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:43.207940 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:43.208055 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:43.390368 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.390490 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:43.390538 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:43.390586 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.390634 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:43.390697 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.390747 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.390797 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:43.390890 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:43.392500 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:43.392545 ./structsserver: EOF signaled on input
+04/16/2016 19:39:43.392587 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:43.392629 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:43.392718 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:43.582387 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.582507 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:43.582556 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:43.582603 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:43.582653 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:43.582715 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.582764 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:43.582814 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:43.582903 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:43.584255 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:43.584322 ./structsserver: EOF signaled on input
+04/16/2016 19:39:43.584365 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:43.584407 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:43.584502 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 19:39:44.392316 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:44.392381 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 19:39:44.392429 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 19:39:44.392476 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 19:39:44.392524 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 19:39:44.392594 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:44.392643 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 19:39:44.392700 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 19:39:44.392798 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 19:39:44.394470 ./structsserver: read zero length message, checking EOF
+04/16/2016 19:39:44.394516 ./structsserver: EOF signaled on input
+04/16/2016 19:39:44.394560 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 19:39:44.394603 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 19:39:44.394704 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:35.420128 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:35.420156 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:35.420176 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:35.420195 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:35.420215 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:35.420248 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:35.420269 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:35.420295 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:35.420348 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:35.421808 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:35.421827 ./structsserver: EOF signaled on input
+04/16/2016 20:04:35.421851 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:35.421868 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:35.421946 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:37.425032 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:37.425058 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:37.425078 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:37.425098 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:37.425118 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:37.425151 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:37.425172 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:37.425198 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:37.425245 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:37.426662 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:37.426682 ./structsserver: EOF signaled on input
+04/16/2016 20:04:37.426699 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:37.426716 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:37.426771 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:38.206049 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.206178 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:38.206263 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:38.206340 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.206422 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:38.206555 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.206665 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.206775 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:38.206985 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:38.208602 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:38.208680 ./structsserver: EOF signaled on input
+04/16/2016 20:04:38.208754 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:38.208833 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:38.209044 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:38.527412 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.527481 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:38.527531 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:38.527578 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.527627 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:38.527697 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.527746 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.527802 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:38.527895 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:38.530547 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:38.530611 ./structsserver: EOF signaled on input
+04/16/2016 20:04:38.530680 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:38.530724 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:38.530851 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:38.756256 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.756319 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:38.756367 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:38.756414 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.756462 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:38.756531 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.756581 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.756635 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:38.756742 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:38.758047 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:38.758095 ./structsserver: EOF signaled on input
+04/16/2016 20:04:38.758137 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:38.758179 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:38.758290 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/16/2016 20:04:38.972771 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.972896 ./structsserver: C150StreamSocket::read: successful read with len=1 |r|
+04/16/2016 20:04:38.972944 ./structsserver: C150StreamSocket::read: successful read with len=1 |e|
+04/16/2016 20:04:38.972992 ./structsserver: C150StreamSocket::read: successful read with len=1 |a|
+04/16/2016 20:04:38.973041 ./structsserver: C150StreamSocket::read: successful read with len=1 |.|
+04/16/2016 20:04:38.973108 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.973157 ./structsserver: C150StreamSocket::read: successful read with len=4 |....|
+04/16/2016 20:04:38.973211 ./structsserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/16/2016 20:04:38.973308 ./structsserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/16/2016 20:04:38.974933 ./structsserver: read zero length message, checking EOF
+04/16/2016 20:04:38.974980 ./structsserver: EOF signaled on input
+04/16/2016 20:04:38.975022 ./structsserver: rpcserver.cpp: EOF signaled on input
+04/16/2016 20:04:38.975064 ./structsserver: Calling C150StreamSocket::close
+04/16/2016 20:04:38.975203 ./structsserver: rpcserver.cpp:calling C150StreamSocket::accept

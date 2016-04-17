@@ -8,6 +8,8 @@ import json
 import sys
 import os
 
+#gloabl list to maintain the types for which the send and recv functions have been created
+types_created = []; 
 
 try:
 	#
@@ -36,19 +38,20 @@ try:
 	# #
 	# # Loop printing each function signature
 	# #
-	for  fname, fsig in decls["functions"].iteritems(): 
+	print decls["types"]
+	# for  fname, fsig in decls["functions"].iteritems(): 
 		
-		# Python Array of all args (each is a hash with keys "name" and "type")
-		args = fsig["arguments"]
-		# print args;
-		# break
+	# 	# Python Array of all args (each is a hash with keys "name" and "type")
+	# 	args = fsig["arguments"]
+	# 	# print args;
+	# 	# break
 		
-		# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
-		argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
+	# 	# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
+	# 	argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
 
-		# print the function signature
-		print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
-		# break
+	# 	# print the function signature
+	# 	print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
+	# 	# break
 
 	# for  tname, ttype in decls["functions"].iteritems():
 
@@ -82,12 +85,40 @@ def init_stub(stub, idlfilename):
 
 
 #
-#		 make_send_recv(type, proxy, stub)
+#		 make_send_recv(typ, proxy, stub)
 #
-# takes in a type string, proxy string and stub sting 
+# takes in a type string, proxy string, stub sting and a types_dict
 # and makes the send and receive for the type in both the proxy and stub
+# by recursively going in a dfs manner through the types_dict.
+# builtin types are leaves
+# we do not revisit a visited node (i.e. do not re-create a type already created)
 #
-def make_send_recv(type, proxy, stub):
-	raise NotImplementedError
+def make_send_recv(typ, proxy, stub, types_dict):
+	global types_created
+	if typ in types_created: # check if we have already visited
+		return
+
+	type_of_type = types_dict[typ]["type_of_type"]
+	if type_of_type is "builtin":
+		if typ is "void":
+			pass
+		elif typ is "int":
+			#make int send recv
+			raise NotImplementedError
+		elif typ is "float":
+			#make float send recv
+			raise NotImplementedError
+		elif typ is "string":
+			#make string send recv
+			raise NotImplementedError
+
+	elif type_of_type is "struct": 		
+		for member in types_dict[typ]["members"]: # for each member type recurse
+			raise NotImplementedError
+
+
+
+
+	types_created.append(typ)
 
 
