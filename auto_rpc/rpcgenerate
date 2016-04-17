@@ -1,0 +1,259 @@
+#!/bin/env python
+#
+#          print signatures of all the functions named in supplied IDL file
+#
+
+import subprocess
+import json
+import sys
+import os
+
+#gloabl list to maintain the types for which the send and recv functions have been created
+types_created = []; 
+
+#global strings to maintain proxy and stub
+proxy=""
+stub=""
+
+#global string to maintain dispatchFunction
+dispatchFunction_string = ""
+
+def main():
+	global dispatchFunction_string, proxy, stub
+	# try:
+		#
+		#     Make sure invoked properly
+		#
+	if len(sys.argv) != 2:
+		raise "Wrong number of arguments"
+
+	#
+	#     Make sure file exists and is readable
+	#
+	filename = sys.argv[1]
+	if (not os.path.isfile(filename)):
+		print >> sys.stderr, "Path %s does not designate a file" % filename
+		raise "No file named " + filename
+	if (not os.access(filename, os.R_OK)):
+		print >> sys.stderr, "File %s is not readable" % filename
+		raise "File " + filename + " not readable"
+
+	
+	init_stub(filename)
+	init_proxy(filename)
+	
+	#
+	#     Parse declarations into a Python dictionary
+	#
+	decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
+
+	# #
+	# # Loop printing each function signature
+	# #
+	# print decls["types"]
+	for  fname, fsig in decls["functions"].iteritems():
+		# make send recv for return type
+		make_send_recv(str(fsig["return_type"]),decls["types"])
+		proxy_function_string = str(fsig["return_type"])+" "+str(fname)+"("
+		proxy_function_input_arg_list = []
+		proxy_function_sig_string = "  send_char_ptr(\""+str(fname)+"\");\n"
+
+		#add function in dispatch function string
+		dispatchFunction_string+="    else if (strcmp(function_name,\""+str(fname)+"\") == 0) {\n      __"+str(fname)+"();\n    }\n"
+		stub_function_string = "void __"+str(fname)+"(){\n"
+		stub_function_input_arg_list =[]
+
+		#make send recv for each argument type
+		for arg in fsig["arguments"]:
+			make_send_recv(str(arg["type"]),decls["types"])
+			stub_function_string +="  "+str(arg["type"]) + " " + str(arg["name"])+";\n" #create local input arg type
+			stub_function_string +="  recv_"+str(arg["type"])+"(&"+str(arg["name"])+");\n" #recv input arg type
+			stub_function_input_arg_list.append(str(arg["name"]))
+			proxy_function_input_arg_list.append(str(arg["type"]) + " " + str(arg["name"]))
+			proxy_function_sig_string += "  send_"+str(arg["type"])+"("+str(arg["name"])+");\n" #send input arg
+
+		
+		proxy_function_sig_string+="  "+str(fsig["return_type"])+" ret_val;\n"
+		proxy_function_sig_string+="  recv_"+str(fsig["return_type"])+"(&ret_val);\n"
+		proxy_function_sig_string+="  return ret_val;\n"
+		
+		proxy_function_string+=', '.join(proxy_function_input_arg_list)+") {\n"
+		proxy_function_string+=proxy_function_sig_string
+		proxy_function_string+="}\n\n"
+
+		proxy+=proxy_function_string
+
+		
+		#make call for local function
+		stub_function_string +="  "+str(fsig["return_type"]) + " ret_val = "+str(fname)+"("+', '.join(stub_function_input_arg_list)+");\n"
+		#send returned value
+		stub_function_string +="  send_"+str(fsig["return_type"]) + "(ret_val);\n"
+		stub_function_string+="}\n\n"
+
+		stub+=stub_function_string # add to global stub string
+
+		# Python Array of all args (each is a hash with keys "name" and "type")
+		# args = fsig["arguments"]
+		# print args;
+	# 	# break
+		
+	# 	# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
+	# 	argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
+
+	# 	# print the function signature
+	# 	print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
+	# 	# break
+
+	# for  tname, ttype in decls["functions"].iteritems():
+
+	
+	# for  tname, ttype in decls["types"].iteritems():
+		# print "calling make_send_recv for type: "+tname
+		# make_send_recv(tname,decls["types"])
+
+
+
+
+
+		create_proxy_file(filename)
+		create_stub_file(filename)
+
+
+	# except Exception as e:
+	# 	print >> sys.stderr, "Error: %s" % e
+
+
+
+
+
+#
+#		 init_proxy(proxy)
+#
+# takes in a proxy string and idlfilename
+# and initializes it with the relevant includes
+# and a send recv for char*
+#
+def init_proxy(idlfilename):
+	global proxy
+	includes_string = "using namespace std;\n#include \"rpcproxyhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCPROXYSOCKET->write(char_ptr, strlen(char_ptr)+1);\n}\n\n"
+	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
+// next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
+// Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
+\n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCPROXYSOCKET-> read(bufp, 1);  // read a byte\
+\n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {\n    if (RPCPROXYSOCKET-> eof()) {}\n    else {\
+\n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
+// If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
+\n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
+	proxy = includes_string + send_char_ptr_string + recv_char_ptr_string
+
+
+
+
+#
+#		 init_stub(stub)
+#
+# takes in a stub string and idlfilename
+# and initializes it with the relevant includes
+# and a send recv for char*
+#
+def init_stub(idlfilename):
+	global stub
+	includes_string = "using namespace std;\n#include \"rpcstubhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);\n}\n\n"
+	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
+// next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
+// Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
+\n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCSTUBSOCKET-> read(bufp, 1);  // read a byte\
+\n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {\n    if (RPCSTUBSOCKET-> eof()) {}\n    else {\
+\n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
+// If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
+\n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
+	stub = includes_string + send_char_ptr_string + recv_char_ptr_string
+	initialize_dispatchFunction_string()
+
+
+#
+#		 make_send_recv(typ, proxy, stub)
+#
+# takes in a type string, proxy string, stub sting and a types_dict
+# and makes the send and receive for the type in both the proxy and stub
+# by recursively going in a dfs manner through the types_dict.
+# builtin types are leaves
+# we do not revisit a visited node (i.e. do not re-create a type already created)
+#
+def make_send_recv(typ, types_dict):
+	global types_created
+	if typ in types_created: # check if we have already visited
+		print "type: "+typ+" already created"
+		return
+	type_of_type = types_dict[typ]["type_of_type"]
+	if str(type_of_type) == "builtin":
+		if typ == "void":
+			pass #do nothing
+		elif typ == "int":
+			#make int send recv
+			make_int_send_recv()
+		elif typ == "float":
+			#make float send recv
+			raise NotImplementedError
+		elif typ == "string":
+			#make string send recv
+			raise NotImplementedError
+
+	elif type_of_type == "struct": 		
+		for member in types_dict[typ]["members"]: # for each member type recurse
+			raise NotImplementedError
+
+	types_created.append(typ)
+
+
+def create_proxy_file(idlfilename):
+	global proxy
+	fp = open(str(idlfilename)[0:str(idlfilename).find(".idl")]+".proxy.cpp", 'w')
+	fp.write(proxy)
+	fp.close()
+
+
+def create_stub_file(idlfilename):
+	global stub
+	make_dispatchFunction()
+	fp = open(str(idlfilename)[0:str(idlfilename).find(".idl")]+".stub.cpp", 'w')
+	fp.write(stub)
+	fp.close()
+
+
+def make_int_send_recv():
+	global proxy, stub
+	print "making int send recv"
+	send_int_string = "void send_int(int int_val)\n{\n  int_val = htonl(int_val); // convert to network order\
+\n  RPCSTUBSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int\n}\n\n"
+	recv_int_string = "void recv_int(int* int_ptr)\n{\n  ssize_t readlen=0;             // amount of data read from socket\
+\n  char int_buf[sizeof(int)];\n\n  while(readlen!=sizeof(int))\n  { \
+\n    readlen+=RPCSTUBSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int\n  }\
+\n\n  *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast\n}\n\n"
+	stub+=send_int_string
+	stub+=recv_int_string
+	proxy+=send_int_string.replace("STUB","PROXY")
+	proxy+=recv_int_string.replace("STUB","PROXY")
+
+
+def initialize_dispatchFunction_string():
+	global dispatchFunction_string
+	dispatchFunction_string="//\n//                         dispatchFunction()\n//\n//   Called when we're ready to read a new invocation\
+ request from the stream\n//\n\nvoid dispatchFunction() {\n\n\n  char function_name[256];\
+\n  recv_char_ptr(function_name,256);\n  printf(\"invoking function: %s\\n\", function_name);\n  //\
+\n  // We've read the function name, call the stub for the right one\
+\n  // The stub will invoke the function and send response.\n  //\n\n  if (!RPCSTUBSOCKET-> eof()) {\
+\n    if (strcmp(function_name,\"\")==0) //dummy test\n    {\n      printf(\"no function\\n\");\n      return;\n    }\n"
+
+def make_dispatchFunction():
+	global dispatchFunction_string, stub
+	dispatchFunction_string+="  }\n}\n\n"
+	stub += dispatchFunction_string
+
+
+if __name__=="__main__":
+	main()

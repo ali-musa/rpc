@@ -1,0 +1,24 @@
+04/17/2016 02:21:57.280252 ./musaserver: rpcstubinitialize: Creating C150StreamSocket
+04/17/2016 02:21:57.293778 ./musaserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/17/2016 02:21:59.359575 ./musaserver: C150StreamSocket::read: successful read with len=1 |a|
+04/17/2016 02:21:59.359645 ./musaserver: C150StreamSocket::read: successful read with len=1 |d|
+04/17/2016 02:21:59.359698 ./musaserver: C150StreamSocket::read: successful read with len=1 |d|
+04/17/2016 02:21:59.359752 ./musaserver: C150StreamSocket::read: successful read with len=1 |.|
+04/17/2016 02:21:59.359874 ./musaserver: C150StreamSocket::read: successful read with len=4 |....|
+04/17/2016 02:21:59.359952 ./musaserver: C150StreamSocket::read: successful read with len=4 |....|
+04/17/2016 02:21:59.360043 ./musaserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/17/2016 02:21:59.360160 ./musaserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/17/2016 02:21:59.361882 ./musaserver: rpcserver.cpp: EOF signaled on input
+04/17/2016 02:21:59.361930 ./musaserver: Calling C150StreamSocket::close
+04/17/2016 02:21:59.362050 ./musaserver: rpcserver.cpp:calling C150StreamSocket::accept
+04/17/2016 02:22:02.892760 ./musaserver: C150StreamSocket::read: successful read with len=1 |a|
+04/17/2016 02:22:02.892826 ./musaserver: C150StreamSocket::read: successful read with len=1 |d|
+04/17/2016 02:22:02.892875 ./musaserver: C150StreamSocket::read: successful read with len=1 |d|
+04/17/2016 02:22:02.892925 ./musaserver: C150StreamSocket::read: successful read with len=1 |.|
+04/17/2016 02:22:02.893078 ./musaserver: C150StreamSocket::read: successful read with len=4 |....|
+04/17/2016 02:22:02.893138 ./musaserver: C150StreamSocket::read: successful read with len=4 |....|
+04/17/2016 02:22:02.893195 ./musaserver: C150StreamSocket::write: attempting to send packet with len=4 |....|
+04/17/2016 02:22:02.893317 ./musaserver: C150StreamSocket::write: Success writing packet with len=4 |....|
+04/17/2016 02:22:02.894966 ./musaserver: rpcserver.cpp: EOF signaled on input
+04/17/2016 02:22:02.895012 ./musaserver: Calling C150StreamSocket::close
+04/17/2016 02:22:02.895171 ./musaserver: rpcserver.cpp:calling C150StreamSocket::accept

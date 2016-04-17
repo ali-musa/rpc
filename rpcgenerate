@@ -11,55 +11,67 @@ import os
 #gloabl list to maintain the types for which the send and recv functions have been created
 types_created = []; 
 
-try:
-	#
-	#     Make sure invoked properly
-	#
-	if len(sys.argv) != 2:
-		raise "Wrong number of arguments"
+#global strings to maintain proxy and stub
+proxy=""
+stub=""
 
-	#
-	#     Make sure file exists and is readable
-	#
-	filename = sys.argv[1]
-	if (not os.path.isfile(filename)):
-		print >> sys.stderr, "Path %s does not designate a file" % filename
-		raise "No file named " + filename
-	if (not os.access(filename, os.R_OK)):
-		print >> sys.stderr, "File %s is not readable" % filename
-		raise "File " + filename + " not readable"
+def main():
+	try:
+		#
+		#     Make sure invoked properly
+		#
+		if len(sys.argv) != 2:
+			raise "Wrong number of arguments"
 
-	#
-	#     Parse declarations into a Python dictionary
-	#
-	decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
+		#
+		#     Make sure file exists and is readable
+		#
+		filename = sys.argv[1]
+		if (not os.path.isfile(filename)):
+			print >> sys.stderr, "Path %s does not designate a file" % filename
+			raise "No file named " + filename
+		if (not os.access(filename, os.R_OK)):
+			print >> sys.stderr, "File %s is not readable" % filename
+			raise "File " + filename + " not readable"
+
+		#
+		#     Parse declarations into a Python dictionary
+		#
+		# decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
 
 
-	# #
-	# # Loop printing each function signature
-	# #
-	print decls["types"]
-	# for  fname, fsig in decls["functions"].iteritems(): 
-		
-	# 	# Python Array of all args (each is a hash with keys "name" and "type")
-	# 	args = fsig["arguments"]
-	# 	# print args;
-	# 	# break
-		
-	# 	# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
-	# 	argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
 
-	# 	# print the function signature
-	# 	print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
-	# 	# break
+		# #
+		# # Loop printing each function signature
+		# #
+		# print decls["types"]
+		# for  fname, fsig in decls["functions"].iteritems(): 
+			
+		# 	# Python Array of all args (each is a hash with keys "name" and "type")
+		# 	args = fsig["arguments"]
+		# 	# print args;
+		# 	# break
+			
+		# 	# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
+		# 	argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
 
-	# for  tname, ttype in decls["functions"].iteritems():
+		# 	# print the function signature
+		# 	print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
+		# 	# break
 
-	
+		# for  tname, ttype in decls["functions"].iteritems():
 
-except Exception as e:
-	print >> sys.stderr, "Usage: %s <idlfilename>" % sys.argv[0]
+		init_stub(filename)
+		init_proxy(filename)
+		make_int_send_recv()
 
+
+		create_proxy_file(filename)
+		create_stub_file(filename)
+
+
+	except Exception as e:
+		print >> sys.stderr, "Error: %s" % e
 
 
 
@@ -70,18 +82,47 @@ except Exception as e:
 #
 # takes in a proxy string and idlfilename
 # and initializes it with the relevant includes
+# and a send recv for char*
 #
-def init_proxy(proxy, idlfilename):
-	raise NotImplementedError
+def init_proxy(idlfilename):
+	global proxy
+	includes_string = "using namespace std;\n#include \"rpcproxyhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCPROXYSOCKET->write(char_ptr, strlen(char_ptr)+1)\n}\n\n"
+	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
+// next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
+// Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
+\n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCPROXYSOCKET-> read(bufp, 1);  // read a byte\
+\n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {}\n  else {\
+\n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
+// If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
+\n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
+	proxy = includes_string + send_char_ptr_string + recv_char_ptr_string
+
+
+
 
 #
 #		 init_stub(stub)
 #
 # takes in a stub string and idlfilename
 # and initializes it with the relevant includes
+# and a send recv for char*
 #
-def init_stub(stub, idlfilename):
-	raise NotImplementedError
+def init_stub(idlfilename):
+	global stub
+	includes_string = "using namespace std;\n#include \"rpcstubhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1)\n}\n\n"
+	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
+// next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
+// Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
+\n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCSTUBSOCKET-> read(bufp, 1);  // read a byte\
+\n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {}\n  else {\
+\n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
+// If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
+\n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
+	stub = includes_string + send_char_ptr_string + recv_char_ptr_string
 
 
 #
@@ -104,7 +145,7 @@ def make_send_recv(typ, proxy, stub, types_dict):
 			pass
 		elif typ is "int":
 			#make int send recv
-			raise NotImplementedError
+			make_int_send_recv()
 		elif typ is "float":
 			#make float send recv
 			raise NotImplementedError
@@ -122,3 +163,36 @@ def make_send_recv(typ, proxy, stub, types_dict):
 	types_created.append(typ)
 
 
+def create_proxy_file(idlfilename):
+	global proxy
+	fp = open(str(idlfilename)[0:str(idlfilename).find(".idl")]+".proxy.cpp", 'w')
+	fp.write(proxy)
+	fp.close()
+
+
+def create_stub_file(idlfilename):
+	global stub
+	fp = open(str(idlfilename)[0:str(idlfilename).find(".idl")]+".stub.cpp", 'w')
+	fp.write(stub)
+	fp.close()
+
+
+def make_int_send_recv():
+	global proxy, stub
+	send_int_string = "void send_int(int int_val)\n{\n  int_val = htonl(int_val); // convert to network order\
+\n  RPCSTUBSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int\n}\n\n"
+	recv_int_string = "void recv_int(int* int_ptr)\n{\n  ssize_t readlen=0;             // amount of data read from socket\
+\n  char int_buf[sizeof(int)];\n\n  while(readlen!=sizeof(int))\n  { \
+\n    readlen+=RPCSTUBSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int\n  }\
+\n\n  *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast\n}\n\n"
+	stub+=send_int_string
+	stub+=recv_int_string
+	proxy+=send_int_string.replace("STUB","PROXY")
+	proxy+=recv_int_string.replace("STUB","PROXY")
+
+
+
+
+
+if __name__=="__main__":
+	main()
