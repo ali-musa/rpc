@@ -2,11 +2,11 @@ using namespace std;
 #include "rpcstubhelper.h"
 #include <cstdio>
 #include <string>
-#include "testarray1.idl"
+#include "structs.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
-  RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
+	RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
 }
 
 void recv_char_ptr(char* char_ptr, unsigned int char_size) {
@@ -48,6 +48,16 @@ void recv_char_ptr(char* char_ptr, unsigned int char_size) {
     throw C150Exception("string not null terminated or too long");
 }
 
+void send_string(string string_ptr)
+{
+  send_char_ptr(string_ptr.c_str());
+}
+
+void recv_string(string* string_ptr_ptr)
+{
+  recv_char_ptr((char*)string_ptr_ptr->c_str(),255); //255 is hardcoded max for strings
+}
+
 void send_int(int int_val)
 {
   int_val = htonl(int_val); // convert to network order
@@ -67,24 +77,51 @@ void recv_int(int* int_ptr)
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
 
-void send___int_24_(int __int_24__val[24]) {
-  for(int i =0; i<24; i++) {
-    send_int(__int_24__val[i]);
-  }
+void send_Person(Person Person_val) {
+  send_string(Person_val.firstname);
+  send_string(Person_val.lastname);
+  send_int(Person_val.age);
 }
 
-void recv___int_24_(int* __int_24__ptr[24]) {
-  for(int i =0; i<24; i++) {
-    recv_int(__int_24__ptr[i]);
-  }
+void recv_Person(Person* Person_ptr) {
+  recv_string(&(*Person_ptr).firstname);
+  recv_string(&(*Person_ptr).lastname);
+  recv_int(&(*Person_ptr).age);
 }
 
-void __sqrt(){
-  int* x;
-  recv___int_24_(&x);
-  int* y;
-  recv___int_24_(&y);
-  int ret_val = sqrt(x, y);
+void send_ThreePeople(ThreePeople ThreePeople_val) {
+  send_Person(ThreePeople_val.p1);
+  send_Person(ThreePeople_val.p2);
+  send_Person(ThreePeople_val.p3);
+}
+
+void recv_ThreePeople(ThreePeople* ThreePeople_ptr) {
+  recv_Person(&(*ThreePeople_ptr).p1);
+  recv_Person(&(*ThreePeople_ptr).p2);
+  recv_Person(&(*ThreePeople_ptr).p3);
+}
+
+void __findPerson(){
+  ThreePeople tp;
+  recv_ThreePeople(&tp);
+  Person ret_val = findPerson(tp);
+  send_Person(ret_val);
+}
+
+void send_rectangle(rectangle rectangle_val) {
+  send_int(rectangle_val.x);
+  send_int(rectangle_val.y);
+}
+
+void recv_rectangle(rectangle* rectangle_ptr) {
+  recv_int(&(*rectangle_ptr).x);
+  recv_int(&(*rectangle_ptr).y);
+}
+
+void __area(){
+  rectangle r;
+  recv_rectangle(&r);
+  int ret_val = area(r);
   send_int(ret_val);
 }
 
@@ -111,8 +148,11 @@ void dispatchFunction() {
       printf("no function\n");
       return;
     }
-    else if (strcmp(function_name,"sqrt") == 0) {
-      __sqrt();
+    else if (strcmp(function_name,"findPerson") == 0) {
+      __findPerson();
+    }
+    else if (strcmp(function_name,"area") == 0) {
+      __area();
     }
   }
 }

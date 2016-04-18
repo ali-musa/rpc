@@ -1,7 +1,5 @@
 #include "musa.idl"
 
-
-
-int add(int x, int y) {
-  return x+y;
+int area(rectangle r) {
+  return r.x*r.y;
 }

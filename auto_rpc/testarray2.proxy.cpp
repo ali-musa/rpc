@@ -2,7 +2,7 @@ using namespace std;
 #include "rpcproxyhelper.h"
 #include <cstdio>
 #include <string>
-#include "musa.idl"
+#include "testarray2.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
@@ -67,19 +67,47 @@ void recv_int(int* int_ptr)
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
 
-void send_rectangle(rectangle rectangle_val) {
-  send_int(rectangle_val.x);
-  send_int(rectangle_val.y);
+void send___int_24_(int __int_24__val[24]) {
+  for(int i =0; i<24; i++) {
+    send_int(__int_24__val[i]);
+  }
 }
 
-void recv_rectangle(rectangle* rectangle_ptr) {
-  recv_int(&(*rectangle_ptr).x);
-  recv_int(&(*rectangle_ptr).y);
+void recv___int_24_(int* __int_24__ptr[24]) {
+  for(int i =0; i<24; i++) {
+    recv_int(__int_24__ptr[i]);
+  }
 }
 
-int area(rectangle r) {
-  send_char_ptr("area");
-  send_rectangle(r);
+void send___int_15_(int __int_15__val[15]) {
+  for(int i =0; i<15; i++) {
+    send_int(__int_15__val[i]);
+  }
+}
+
+void recv___int_15_(int* __int_15__ptr[15]) {
+  for(int i =0; i<15; i++) {
+    recv_int(__int_15__ptr[i]);
+  }
+}
+
+void send___int_24__15_(int __int_24__15__val[24][15]) {
+  for(int i =0; i<24; i++) {
+    send___int_15_(__int_24__15__val[i]);
+  }
+}
+
+void recv___int_24__15_(int* __int_24__15__ptr[24][15]) {
+  for(int i =0; i<24; i++) {
+    recv___int_15_(__int_24__15__ptr[i]);
+  }
+}
+
+int sqrt(int* x, int** y, int** z) {
+  send_char_ptr("sqrt");
+  send___int_24_(x);
+  send___int_24__15_(y);
+  send___int_24__15_(z);
   int ret_val;
   recv_int(&ret_val);
   return ret_val;

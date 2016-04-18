@@ -1,6 +1,6 @@
 using namespace std;          // for C++ std library
 #include <string>
-#include "structs.idl"
+#include "testarray1.idl"
 
 #include "rpcproxyhelper.h"
 
@@ -44,8 +44,8 @@ int main(int argc, char *argv[]) {
        //
        result =1;
        
-       int x[24] = {5};
-       int y[24] = {8};
+       int x[24] = {1,2,3,4,5,6,7,8,9,0,1,2,4,5,6,7,8,9,0,1,2,3,4};
+       int y[24] = {1,2,3,4,5,6,7,8,9,0,1,2,4,5,6,7,8,9,0,1,2,3,4};
        printf("Calling sqrt()\n");
        result = sqrt(x,y);                          // remote call (we hope!)
        printf("Returned from sqrt. Result=%i\n",result);

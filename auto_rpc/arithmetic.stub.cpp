@@ -2,11 +2,11 @@ using namespace std;
 #include "rpcstubhelper.h"
 #include <cstdio>
 #include <string>
-#include "testarray1.idl"
+#include "arithmetic.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
-  RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
+	RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
 }
 
 void recv_char_ptr(char* char_ptr, unsigned int char_size) {
@@ -67,24 +67,39 @@ void recv_int(int* int_ptr)
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
 
-void send___int_24_(int __int_24__val[24]) {
-  for(int i =0; i<24; i++) {
-    send_int(__int_24__val[i]);
-  }
+void __multiply(){
+  int x;
+  recv_int(&x);
+  int y;
+  recv_int(&y);
+  int ret_val = multiply(x, y);
+  send_int(ret_val);
 }
 
-void recv___int_24_(int* __int_24__ptr[24]) {
-  for(int i =0; i<24; i++) {
-    recv_int(__int_24__ptr[i]);
-  }
+void __add(){
+  int x;
+  recv_int(&x);
+  int y;
+  recv_int(&y);
+  int ret_val = add(x, y);
+  send_int(ret_val);
 }
 
-void __sqrt(){
-  int* x;
-  recv___int_24_(&x);
-  int* y;
-  recv___int_24_(&y);
-  int ret_val = sqrt(x, y);
+void __subtract(){
+  int x;
+  recv_int(&x);
+  int y;
+  recv_int(&y);
+  int ret_val = subtract(x, y);
+  send_int(ret_val);
+}
+
+void __divide(){
+  int x;
+  recv_int(&x);
+  int y;
+  recv_int(&y);
+  int ret_val = divide(x, y);
   send_int(ret_val);
 }
 
@@ -111,8 +126,17 @@ void dispatchFunction() {
       printf("no function\n");
       return;
     }
-    else if (strcmp(function_name,"sqrt") == 0) {
-      __sqrt();
+    else if (strcmp(function_name,"multiply") == 0) {
+      __multiply();
+    }
+    else if (strcmp(function_name,"add") == 0) {
+      __add();
+    }
+    else if (strcmp(function_name,"subtract") == 0) {
+      __subtract();
+    }
+    else if (strcmp(function_name,"divide") == 0) {
+      __divide();
     }
   }
 }

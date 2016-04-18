@@ -67,12 +67,20 @@ void recv_int(int* int_ptr)
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
 
-void __add(){
-  int x;
-  recv_int(&x);
-  int y;
-  recv_int(&y);
-  int ret_val = add(x, y);
+void send_rectangle(rectangle rectangle_val) {
+  send_int(rectangle_val.x);
+  send_int(rectangle_val.y);
+}
+
+void recv_rectangle(rectangle* rectangle_ptr) {
+  recv_int(&(*rectangle_ptr).x);
+  recv_int(&(*rectangle_ptr).y);
+}
+
+void __area(){
+  rectangle r;
+  recv_rectangle(&r);
+  int ret_val = area(r);
   send_int(ret_val);
 }
 
@@ -99,8 +107,8 @@ void dispatchFunction() {
       printf("no function\n");
       return;
     }
-    else if (strcmp(function_name,"add") == 0) {
-      __add();
+    else if (strcmp(function_name,"area") == 0) {
+      __area();
     }
   }
 }

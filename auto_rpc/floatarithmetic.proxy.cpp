@@ -2,7 +2,7 @@ using namespace std;
 #include "rpcproxyhelper.h"
 #include <cstdio>
 #include <string>
-#include "musa.idl"
+#include "floatarithmetic.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
@@ -48,40 +48,56 @@ void recv_char_ptr(char* char_ptr, unsigned int char_size) {
     throw C150Exception("string not null terminated or too long");
 }
 
-void send_int(int int_val)
+void send_float(float float_val)
 {
-  int_val = htonl(int_val); // convert to network order
-  RPCPROXYSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int
+  RPCPROXYSOCKET->write(((const char *)(&float_val)),sizeof(float)); // send size of float
 }
 
-void recv_int(int* int_ptr)
+void recv_float(float* float_ptr)
 {
   ssize_t readlen=0;             // amount of data read from socket
-  char int_buf[sizeof(int)];
+  char float_buf[sizeof(float)];
 
-  while(readlen!=sizeof(int))
+  while(readlen!=sizeof(float))
   { 
-    readlen+=RPCPROXYSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int
+    readlen+=RPCPROXYSOCKET->read(float_buf+readlen,sizeof(float)-readlen); // read size of float
   }
-
-  *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
+  *float_ptr = *((float*)(&float_buf));
 }
 
-void send_rectangle(rectangle rectangle_val) {
-  send_int(rectangle_val.x);
-  send_int(rectangle_val.y);
+float multiply(float x, float y) {
+  send_char_ptr("multiply");
+  send_float(x);
+  send_float(y);
+  float ret_val;
+  recv_float(&ret_val);
+  return ret_val;
 }
 
-void recv_rectangle(rectangle* rectangle_ptr) {
-  recv_int(&(*rectangle_ptr).x);
-  recv_int(&(*rectangle_ptr).y);
+float add(float x, float y) {
+  send_char_ptr("add");
+  send_float(x);
+  send_float(y);
+  float ret_val;
+  recv_float(&ret_val);
+  return ret_val;
 }
 
-int area(rectangle r) {
-  send_char_ptr("area");
-  send_rectangle(r);
-  int ret_val;
-  recv_int(&ret_val);
+float subtract(float x, float y) {
+  send_char_ptr("subtract");
+  send_float(x);
+  send_float(y);
+  float ret_val;
+  recv_float(&ret_val);
+  return ret_val;
+}
+
+float divide(float x, float y) {
+  send_char_ptr("divide");
+  send_float(x);
+  send_float(y);
+  float ret_val;
+  recv_float(&ret_val);
   return ret_val;
 }
 

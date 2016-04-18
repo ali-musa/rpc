@@ -2,7 +2,7 @@ using namespace std;
 #include "rpcproxyhelper.h"
 #include <cstdio>
 #include <string>
-#include "musa.idl"
+#include "structs.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
@@ -48,6 +48,16 @@ void recv_char_ptr(char* char_ptr, unsigned int char_size) {
     throw C150Exception("string not null terminated or too long");
 }
 
+void send_string(string string_ptr)
+{
+  send_char_ptr(string_ptr.c_str());
+}
+
+void recv_string(string* string_ptr_ptr)
+{
+  recv_char_ptr((char*)string_ptr_ptr->c_str(),255); //255 is hardcoded max for strings
+}
+
 void send_int(int int_val)
 {
   int_val = htonl(int_val); // convert to network order
@@ -65,6 +75,38 @@ void recv_int(int* int_ptr)
   }
 
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
+}
+
+void send_Person(Person Person_val) {
+  send_string(Person_val.firstname);
+  send_string(Person_val.lastname);
+  send_int(Person_val.age);
+}
+
+void recv_Person(Person* Person_ptr) {
+  recv_string(&(*Person_ptr).firstname);
+  recv_string(&(*Person_ptr).lastname);
+  recv_int(&(*Person_ptr).age);
+}
+
+void send_ThreePeople(ThreePeople ThreePeople_val) {
+  send_Person(ThreePeople_val.p1);
+  send_Person(ThreePeople_val.p2);
+  send_Person(ThreePeople_val.p3);
+}
+
+void recv_ThreePeople(ThreePeople* ThreePeople_ptr) {
+  recv_Person(&(*ThreePeople_ptr).p1);
+  recv_Person(&(*ThreePeople_ptr).p2);
+  recv_Person(&(*ThreePeople_ptr).p3);
+}
+
+Person findPerson(ThreePeople tp) {
+  send_char_ptr("findPerson");
+  send_ThreePeople(tp);
+  Person ret_val;
+  recv_Person(&ret_val);
+  return ret_val;
 }
 
 void send_rectangle(rectangle rectangle_val) {

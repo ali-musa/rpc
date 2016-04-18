@@ -2,7 +2,7 @@ using namespace std;
 #include "rpcproxyhelper.h"
 #include <cstdio>
 #include <string>
-#include "musa.idl"
+#include "arithmetic.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
@@ -67,19 +67,37 @@ void recv_int(int* int_ptr)
   *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
 }
 
-void send_rectangle(rectangle rectangle_val) {
-  send_int(rectangle_val.x);
-  send_int(rectangle_val.y);
+int multiply(int x, int y) {
+  send_char_ptr("multiply");
+  send_int(x);
+  send_int(y);
+  int ret_val;
+  recv_int(&ret_val);
+  return ret_val;
 }
 
-void recv_rectangle(rectangle* rectangle_ptr) {
-  recv_int(&(*rectangle_ptr).x);
-  recv_int(&(*rectangle_ptr).y);
+int add(int x, int y) {
+  send_char_ptr("add");
+  send_int(x);
+  send_int(y);
+  int ret_val;
+  recv_int(&ret_val);
+  return ret_val;
 }
 
-int area(rectangle r) {
-  send_char_ptr("area");
-  send_rectangle(r);
+int subtract(int x, int y) {
+  send_char_ptr("subtract");
+  send_int(x);
+  send_int(y);
+  int ret_val;
+  recv_int(&ret_val);
+  return ret_val;
+}
+
+int divide(int x, int y) {
+  send_char_ptr("divide");
+  send_int(x);
+  send_int(y);
   int ret_val;
   recv_int(&ret_val);
   return ret_val;

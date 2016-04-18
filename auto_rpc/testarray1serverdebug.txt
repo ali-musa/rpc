@@ -1,0 +1,8 @@
+04/18/2016 03:13:20.113211 ./testarray1server: rpcstubinitialize: Creating C150StreamSocket
+04/18/2016 03:13:20.124000 ./testarray1server: rpcserver.cpp:calling C150StreamSocket::accept
+04/18/2016 03:13:28.022769 ./testarray1server: C150StreamSocket::read: successful read with len=1 |s|
+04/18/2016 03:13:28.022892 ./testarray1server: C150StreamSocket::read: successful read with len=1 |q|
+04/18/2016 03:13:28.022998 ./testarray1server: C150StreamSocket::read: successful read with len=1 |r|
+04/18/2016 03:13:28.023150 ./testarray1server: C150StreamSocket::read: successful read with len=1 |t|
+04/18/2016 03:13:28.023260 ./testarray1server: C150StreamSocket::read: successful read with len=1 |.|
+04/18/2016 03:13:28.023401 ./testarray1server: C150StreamSocket::read: successful read with len=4 |....|

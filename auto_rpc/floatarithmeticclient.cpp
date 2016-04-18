@@ -1,18 +1,91 @@
-using namespace std;          // for C++ std library
-#include <string>
-#include "structs.idl"
+// --------------------------------------------------------------
+//
+//                        floatarithmeticclient.cpp
+//
+//        Author: Noah Mendelsohn         
+//   
+//
+//        This is a test program designed to call a few demonstration
+//        functions, after first enabling the COMP 150-IDS rpcproxyhelper.
+//        (The purpose of the helper is to open a TCP stream connection
+//        to the proper server, and to leave the socket pointer where
+//        the generated proxies can find it.
+//
+//        NOTE: Although this example does nothing except test the
+//        functions, we may test your proxies and stubs with client
+//        applications that do real work. 
+//
+//        NOTE: When actually testing your RPC submission, you will use
+//        a different client application for each set of functions. This
+//        one is just to show a simple example.
+//
+//        NOTE: The only thing that makes this different from 
+//        an ordinary local application is the call to
+//        rpcproxyinitialize. If you commented that out, you could
+//        link this with the local version of simplefunction.o
+//        (which has the remotable function implementations)			      
+//
+//        COMMAND LINE
+//
+//              floatarithmeticclient <servername> 
+//
+//        OPERATION
+//
+//
+//       Copyright: 2012 Noah Mendelsohn
+//     
+// --------------------------------------------------------------
+
+
+// IMPORTANT! WE INCLUDE THE IDL FILE AS IT DEFINES THE INTERFACES
+// TO THE FUNCTIONS WE'RE REMOTING. OF COURSE, THE PARTICULAR IDL FILE
+// IS CHOSEN ACCORDING TO THE TEST OR APPLICATION
+// 
+// NOTE THAT THIS IS THE SAME IDL FILE INCLUDED WITH THE PROXIES
+// AND STUBS, AND ALSO USED AS INPUT TO AUTOMATIC PROXY/STUB
+// GENERATOR PROGRAM
+
+#include "floatarithmetic.idl"
 
 #include "rpcproxyhelper.h"
 
+#include "c150debug.h"
 #include "c150grading.h"
 #include <fstream>
 
+using namespace std;          // for C++ std library
 using namespace C150NETWORK;  // for all the comp150 utilities 
+
+// forward declarations
+void setUpDebugLogging(const char *logname, int argc, char *argv[]);
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+//
+//                    Command line arguments
+//
+// The following are used as subscripts to argv, the command line arguments
+// If we want to change the command line syntax, doing this
+// symbolically makes it a bit easier.
+//
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 const int serverArg = 1;     // server name is 1st arg
 
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+//
+//                           main program
+//
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
  
-int main(int argc, char *argv[]) {
+int 
+main(int argc, char *argv[]) {
+
+     //
+     //  Set up debug message logging
+     //
+     setUpDebugLogging("simplefunctionclientdebug.txt",argc, argv);
 
      //
      // Make sure command line looks right
@@ -32,7 +105,7 @@ int main(int argc, char *argv[]) {
      //     Call the functions and see if they return
      //
      try {
-       int result; 
+       float result; 
 
        //
        // Set up the socket so the proxies can find it
@@ -42,48 +115,30 @@ int main(int argc, char *argv[]) {
        // 
        // Call (possibly remote) add
        //
-       result =1;
-       
-       int x[24] = {5};
-       int y[24] = {8};
-       printf("Calling sqrt()\n");
-       result = sqrt(x,y);                          // remote call (we hope!)
-       printf("Returned from sqrt. Result=%i\n",result);
+       printf("Calling add(10.0,3.5)\n");
+       result = add(10.0,3.5);                          // remote call (we hope!)
+       printf("Returned from add(10.0,3.5). Result=%f\n",result);
 
-       // ThreePeople tppl;
-       // tppl.p1.firstname = "first";
-       // tppl.p1.lastname = "person";
-       // tppl.p1.age = 10;
-       // tppl.p2.firstname = "second";
-       // tppl.p2.lastname = "person";
-       // tppl.p2.age = 20;
-       // tppl.p3.firstname = "third";
-       // tppl.p3.lastname = "person";
-       // tppl.p3.age = 30;
-
-       // printf("Calling findPerson, should return second person with age 20\n");
-       // Person p = findPerson(tppl);                          // remote call (we hope!)
-       // printf("Returned from findPerson with name = %s %s\t age = %i\n",p.firstname.c_str(),p.lastname.c_str(),p.age);
        // 
        // Call (possibly remote) subtract
        //
-       // printf("Calling subtract(10.0,3.5)\n");
-       // result = subtract(10.0,3.5);                          // remote call (we hope!)
-       // printf("Returned from subtract(10.0,3.5). Result=%f\n",result);
+       printf("Calling subtract(10.0,3.5)\n");
+       result = subtract(10.0,3.5);                          // remote call (we hope!)
+       printf("Returned from subtract(10.0,3.5). Result=%f\n",result);
 
-       // // 
-       // // Call (possibly remote) multiply
-       // //
-       // printf("Calling multiply(10.0,3.5)\n");
-       // result = multiply(10.0,3.5);                          // remote call (we hope!)
-       // printf("Returned from multiply(10.0,3.5). Result=%f\n",result);
+       // 
+       // Call (possibly remote) multiply
+       //
+       printf("Calling multiply(10.0,3.5)\n");
+       result = multiply(10.0,3.5);                          // remote call (we hope!)
+       printf("Returned from multiply(10.0,3.5). Result=%f\n",result);
 
-       // // 
-       // // Call (possibly remote) divide
-       // //
-       // printf("Calling divide(10.0,3.5)\n");
-       // result = divide(10.0,3.5);                          // remote call (we hope!)
-       // printf("Returned from divide(10.0,3.5). Result=%f\n",result);
+       // 
+       // Call (possibly remote) divide
+       //
+       printf("Calling divide(10.0,3.5)\n");
+       result = divide(10.0,3.5);                          // remote call (we hope!)
+       printf("Returned from divide(10.0,3.5). Result=%f\n",result);
 
 
      }
@@ -94,7 +149,7 @@ int main(int argc, char *argv[]) {
      catch (C150Exception e) {
        // Write to debug log
        c150debug->printf(C150ALWAYSLOG,"Caught C150Exception: %s\n",
-       e.formattedExplanation().c_str());
+			 e.formattedExplanation().c_str());
        // In case we're logging to a file, write to the console too
        cerr << argv[0] << ": caught C150NetworkException: " << e.formattedExplanation() << endl;
      }
@@ -179,5 +234,5 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
      // for the system to run quietly without producing debug output.
      //
      c150debug->enableLogging(C150ALLDEBUG | C150RPCDEBUG | C150APPLICATION | C150NETWORKTRAFFIC | 
-            C150NETWORKDELIVERY); 
+			      C150NETWORKDELIVERY); 
 }

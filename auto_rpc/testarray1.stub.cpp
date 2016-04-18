@@ -6,7 +6,7 @@ using namespace std;
 
 void send_char_ptr(const char* char_ptr)
 {
-  RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
+	RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
 }
 
 void recv_char_ptr(char* char_ptr, unsigned int char_size) {

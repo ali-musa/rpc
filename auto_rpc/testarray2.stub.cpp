@@ -2,11 +2,11 @@ using namespace std;
 #include "rpcstubhelper.h"
 #include <cstdio>
 #include <string>
-#include "testarray1.idl"
+#include "testarray2.idl"
 
 void send_char_ptr(const char* char_ptr)
 {
-  RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
+	RPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);
 }
 
 void recv_char_ptr(char* char_ptr, unsigned int char_size) {
@@ -79,12 +79,38 @@ void recv___int_24_(int* __int_24__ptr[24]) {
   }
 }
 
+void send___int_15_(int __int_15__val[15]) {
+  for(int i =0; i<15; i++) {
+    send_int(__int_15__val[i]);
+  }
+}
+
+void recv___int_15_(int* __int_15__ptr[15]) {
+  for(int i =0; i<15; i++) {
+    recv_int(__int_15__ptr[i]);
+  }
+}
+
+void send___int_24__15_(int __int_24__15__val[24][15]) {
+  for(int i =0; i<24; i++) {
+    send___int_15_(__int_24__15__val[i]);
+  }
+}
+
+void recv___int_24__15_(int* __int_24__15__ptr[24][15]) {
+  for(int i =0; i<24; i++) {
+    recv___int_15_(__int_24__15__ptr[i]);
+  }
+}
+
 void __sqrt(){
   int* x;
   recv___int_24_(&x);
-  int* y;
-  recv___int_24_(&y);
-  int ret_val = sqrt(x, y);
+  int** y;
+  recv___int_24__15_(&y);
+  int** z;
+  recv___int_24__15_(&z);
+  int ret_val = sqrt(x, y, z);
   send_int(ret_val);
 }
 

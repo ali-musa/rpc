@@ -65,14 +65,25 @@ def main():
 
 		#make send recv for each argument type
 		for arg in fsig["arguments"]:
+			isArray = 0
+			if (decls["types"][str(arg["type"])]["type_of_type"] == "array"):
+				isArray =1
+				
 			make_send_recv(str(arg["type"]),decls["types"])
-			stub_function_string +="  "+str(arg["type"]) + " " + str(arg["name"])+";\n" #create local input arg type
-			stub_function_string +="  recv_"+str(arg["type"])+"(&"+str(arg["name"])+");\n" #recv input arg type
-			stub_function_input_arg_list.append(str(arg["name"]))
-			proxy_function_input_arg_list.append(str(arg["type"]) + " " + str(arg["name"]))
-			proxy_function_sig_string += "  send_"+str(arg["type"])+"("+str(arg["name"])+");\n" #send input arg
+			arg_syntax = str(arg["type"]) + " " + str(arg["name"])
+			if isArray:
+				# arg_syntax = convert_to_array_syntax(arg_syntax)
+				
+				arg_syntax = get_array_root_type(str(arg["type"]),decls["types"]) \
+				+ get_array_type_pointers(str(arg["type"]),decls["types"]) \
+				+ " " +str(arg["name"])
 
-		
+			stub_function_string +="  "+arg_syntax+";\n" #create local input arg type
+			stub_function_string +="  recv_"+get_valid_c_variable_syntax(str(arg["type"]))+"(&"+str(arg["name"])+");\n" #recv input arg type
+			stub_function_input_arg_list.append(str(arg["name"]))
+			proxy_function_input_arg_list.append(arg_syntax)
+			proxy_function_sig_string += "  send_"+get_valid_c_variable_syntax(str(arg["type"]))+"("+str(arg["name"])+");\n" #send input arg
+			
 		proxy_function_sig_string+="  "+str(fsig["return_type"])+" ret_val;\n"
 		proxy_function_sig_string+="  recv_"+str(fsig["return_type"])+"(&ret_val);\n"
 		proxy_function_sig_string+="  return ret_val;\n"
@@ -115,8 +126,8 @@ def main():
 
 
 
-		create_proxy_file(filename)
-		create_stub_file(filename)
+	create_proxy_file(filename)
+	create_stub_file(filename)
 
 
 	# except Exception as e:
@@ -176,18 +187,17 @@ def init_stub(idlfilename):
 
 
 #
-#		 make_send_recv(typ, proxy, stub)
+#		 make_send_recv(typ, types_dict)
 #
-# takes in a type string, proxy string, stub sting and a types_dict
+# takes in a type string and a types_dict
 # and makes the send and receive for the type in both the proxy and stub
 # by recursively going in a dfs manner through the types_dict.
 # builtin types are leaves
 # we do not revisit a visited node (i.e. do not re-create a type already created)
 #
 def make_send_recv(typ, types_dict):
-	global types_created
+	global types_created, proxy, stub
 	if typ in types_created: # check if we have already visited
-		print "type: "+typ+" already created"
 		return
 	type_of_type = types_dict[typ]["type_of_type"]
 	if str(type_of_type) == "builtin":
@@ -198,15 +208,40 @@ def make_send_recv(typ, types_dict):
 			make_int_send_recv()
 		elif typ == "float":
 			#make float send recv
-			raise NotImplementedError
+			make_float_send_recv()
 		elif typ == "string":
 			#make string send recv
-			raise NotImplementedError
-
-	elif type_of_type == "struct": 		
+			make_string_send_recv()
+	elif type_of_type == "struct":
+		print "making struct send recv"
+		send_struct_string = "void send_"+typ+"("+typ+" "+typ+"_val) {\n"
+		recv_struct_string = "void recv_"+typ+"("+typ+"* "+typ+"_ptr) {\n"
 		for member in types_dict[typ]["members"]: # for each member type recurse
-			raise NotImplementedError
-
+			send_struct_string+="  send_"+str(member["type"])+"("+typ+"_val."+str(member["name"])+");\n"
+			recv_struct_string+="  recv_"+str(member["type"])+"(&(*"+typ+"_ptr)."+str(member["name"])+");\n"
+			make_send_recv(str(member["type"]),types_dict)
+		send_struct_string+="}\n\n"
+		recv_struct_string+="}\n\n"
+		proxy+=send_struct_string
+		stub+=send_struct_string
+		proxy+=recv_struct_string
+		stub+=recv_struct_string
+	elif type_of_type == "array":
+		print "making array send recv"
+		make_send_recv(str(types_dict[typ]["member_type"]),types_dict)
+		c_var = get_valid_c_variable_syntax(typ)
+		c_typ = typ.replace("__","")
+		json_arg_str_val = typ + " val"
+		json_arg_str_ptr = typ + " ptr"
+		print convert_to_array_syntax_with_ptr(json_arg_str_ptr)
+		send_array_string = "void send_"+c_var+"("+convert_to_array_syntax(json_arg_str_val).replace("val",c_var+"_val")+") {\n  for(int i =0; i<"+str(types_dict[typ]["element_count"])+"; i++) \
+{\n    send_"+get_valid_c_variable_syntax(str(types_dict[typ]["member_type"]))+"("+c_var+"_val[i]);\n  }\n}\n\n"
+		recv_array_string = "void recv_"+c_var+"("+convert_to_array_syntax_with_ptr(json_arg_str_ptr).replace("ptr",c_var+"_ptr")+") {\n  for(int i =0; i<"+str(types_dict[typ]["element_count"])+"; i++) \
+{\n    recv_"+get_valid_c_variable_syntax(str(types_dict[typ]["member_type"]))+"("+c_var+"_ptr[i]);\n  }\n}\n\n"
+		proxy+=send_array_string
+		stub+=send_array_string
+		proxy+=recv_array_string
+		stub+=recv_array_string
 	types_created.append(typ)
 
 
@@ -239,6 +274,66 @@ def make_int_send_recv():
 	proxy+=send_int_string.replace("STUB","PROXY")
 	proxy+=recv_int_string.replace("STUB","PROXY")
 
+def make_float_send_recv():
+	global proxy, stub
+	print "making float send recv"
+	send_float_string = "void send_float(float float_val)\n{\n  \
+RPCSTUBSOCKET->write(((const char *)(&float_val)),sizeof(float)); // send size of float\n}\n\n"
+	recv_float_string = "void recv_float(float* float_ptr)\n{\n  ssize_t readlen=0;             \
+// amount of data read from socket\n  char float_buf[sizeof(float)];\n\n  while(readlen!=sizeof(float))\
+\n  { \n    readlen+=RPCSTUBSOCKET->read(float_buf+readlen,sizeof(float)-readlen); // read size of float\n  }\
+\n  *float_ptr = *((float*)(&float_buf));\n}\n\n"
+	stub+=send_float_string
+	stub+=recv_float_string
+	proxy+=send_float_string.replace("STUB","PROXY")
+	proxy+=recv_float_string.replace("STUB","PROXY")
+
+def make_string_send_recv():
+	# TODO: fix this, add support for large strings
+	global proxy, stub
+	print "making string send recv"
+	send_string_string = "void send_string(string string_ptr)\n{\n  send_char_ptr(string_ptr.c_str());\n}\n\n"
+	recv_string_string = "void recv_string(string* string_ptr_ptr)\n{\n  recv_char_ptr((char*)string_ptr_ptr->c_str(),255); //255 is hardcoded max for strings\n}\n\n"
+	stub+=send_string_string
+	stub+=recv_string_string
+	proxy+=send_string_string
+	proxy+=recv_string_string
+
+def convert_to_array_syntax(json_syntax):
+	syntax_list = json_syntax.replace("__","").replace("["," ").replace("]","").split(" ")
+	print syntax_list
+	c_syntax = str(syntax_list[0])+" "+str(syntax_list[-1])
+	for element_count in syntax_list[1:-1]:
+		print element_count
+		c_syntax+="["+str(element_count)+"]"
+	return c_syntax
+
+def convert_to_array_syntax_with_ptr(json_syntax):
+	syntax_list = json_syntax.replace("__","").replace("["," ").replace("]","").split(" ")
+	print syntax_list
+	c_syntax = str(syntax_list[0])+"* "+str(syntax_list[-1])
+	for element_count in syntax_list[1:-1]:
+		print element_count
+		c_syntax+="["+str(element_count)+"]"
+	return c_syntax
+
+def get_array_type_pointers(typ, types_dict):
+	#assuming nested arrays are of the same type
+	if str(types_dict[typ]["type_of_type"]) =="array": 
+		return "*"+get_array_type_pointers(str(types_dict[typ]["member_type"]),types_dict) 
+	else:
+		return ""
+
+def get_array_root_type(typ, types_dict):
+	#assuming nested arrays are of the same type
+	if str(types_dict[typ]["type_of_type"]) =="array": 
+		return get_array_root_type(str(types_dict[typ]["member_type"]),types_dict) 
+	else:
+		return typ
+
+def get_valid_c_variable_syntax(array_syntax):
+	local_array_syntax = array_syntax
+	return local_array_syntax.replace("[","_").replace("]","_")
 
 def initialize_dispatchFunction_string():
 	global dispatchFunction_string

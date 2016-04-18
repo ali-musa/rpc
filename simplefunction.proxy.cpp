@@ -1,109 +1,90 @@
-// --------------------------------------------------------------
-//
-//                        simplefunction.proxy.cpp
-//
-//        Author: Noah Mendelsohn         
-//   
-//       This is a hand-crafted demonstration proxy.
-//
-//       For your project, your "rpcgen" program will generate
-//       proxies like this one automatically from the idl
-//       file. Note that this proxy also #includes the 
-//       simplefunctions.idl file. Of course, your rpcgen
-//       program will change that, as well as the number
-//       of functions generated. More importantly, it will
-//       generate code to handle function arguments and
-//       return values.
-//
-//
-//
-//       Copyright: 2012 Noah Mendelsohn
-//     
-// --------------------------------------------------------------
-
-// IMPORTANT! WE INCLUDE THE IDL FILE AS IT DEFINES THE INTERFACES
-// TO THE FUNCTIONS WE'RE IMPLEMENTING. THIS MAKES SURE THE
-// CODE HERE ACTUALLY MATCHES THE REMOTED INTERFACE
-
-#include "simplefunction.idl"
-
+using namespace std;
 #include "rpcproxyhelper.h"
-
 #include <cstdio>
-#include <cstring>
-#include "c150debug.h"
+#include <string>
+#include "testarray1.idl"
 
-using namespace C150NETWORK;  // for all the comp150 utilities 
-
-
-void func1() {
-  char readBuffer[5];  // to read magic value DONE + null
-  //
-  // Send the Remote Call
-  //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func1() invoked");
-  RPCPROXYSOCKET->write("func1", strlen("func1")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func1() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
-
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("simplefunction.proxy: func1() received invalid response from the server");
-  }
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func1() successful return from remote call");
-
+void send_char_ptr(const char* char_ptr)
+{
+  RPCPROXYSOCKET->write(char_ptr, strlen(char_ptr)+1);
 }
 
-
-void func2() {
-  char readBuffer[5];  // to read magic value DONE + null
+void recv_char_ptr(char* char_ptr, unsigned int char_size) {
+  unsigned int i;
+  char *bufp;    // next char to read
+  bool readnull;
+  ssize_t readlen;             // amount of data read from socket
+  
   //
-  // Send the Remote Call
+  // Read a message from the stream
+  // -1 in size below is to leave room for null
   //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func2() invoked");
-  RPCPROXYSOCKET->write("func2", strlen("func2")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func2() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
-
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("simplefunction.proxy: func2() received invalid response from the server");
+  readnull = false;
+  bufp = char_ptr;
+  for (i=0; i< char_size; i++) {
+    readlen = RPCPROXYSOCKET-> read(bufp, 1);  // read a byte
+    // check for eof or error
+    if (readlen == 0) {
+      break;
+    }
+    // check for null and bump buffer pointer
+    if (*bufp++ == '\0') {
+      readnull = true;
+      break;
+    }
   }
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func2() successful return from remote call");
+  
+  if (readlen == 0) {
+    if (RPCPROXYSOCKET-> eof()) {}
+    else {
+      throw C150Exception("unexpected zero length read without eof");
+    }
+  }
 
+  //
+  // If we didn't get a null, input message was poorly formatted
+  //
+  else if(!readnull) 
+    throw C150Exception("string not null terminated or too long");
 }
 
+void send_int(int int_val)
+{
+  int_val = htonl(int_val); // convert to network order
+  RPCPROXYSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int
+}
 
-void func3() {
-  char readBuffer[5];  // to read magic value DONE + null
-  //
-  // Send the Remote Call
-  //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func3() invoked");
-  RPCPROXYSOCKET->write("func3", strlen("func3")+1); // write function name including null
-  //
-  // Read the response
-  //
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func3() invocation sent, waiting for response");
-  RPCPROXYSOCKET->read(readBuffer, sizeof(readBuffer)); // only legal response is DONE
+void recv_int(int* int_ptr)
+{
+  ssize_t readlen=0;             // amount of data read from socket
+  char int_buf[sizeof(int)];
 
-  //
-  // Check the response
-  //
-  if (strncmp(readBuffer,"DONE", sizeof(readBuffer))!=0) {
-    throw C150Exception("simplefunction.proxy: func3() received invalid response from the server");
+  while(readlen!=sizeof(int))
+  { 
+    readlen+=RPCPROXYSOCKET->read(int_buf+readlen,sizeof(int)-readlen); // read size of int
   }
-  c150debug->printf(C150RPCDEBUG,"simplefunction.proxy.cpp: func3() successful return from remote call");
 
+  *int_ptr = ntohl(*((int*)(&int_buf))); // convert to host order and cast
+}
+
+void send___int_24_(int __int_24__val[24]) {
+  for(int i =0; i<24; i++) {
+    send_int(__int_24__val[i]);
+  }
+}
+
+void recv___int_24_(int* __int_24__ptr[24]) {
+  for(int i =0; i<24; i++) {
+    recv_int(__int_24__ptr[i]);
+  }
+}
+
+int sqrt(int* x, int* y) {
+  send_char_ptr("sqrt");
+  send___int_24_(x);
+  send___int_24_(y);
+  int ret_val;
+  recv_int(&ret_val);
+  return ret_val;
 }
 
