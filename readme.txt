@@ -21,4 +21,4 @@ Files provided and required for the make other than xxx.idl, xxx.cpp, xxxclient.
 
 Known bugs:
 - float conversion to network order and vice versa not implmented
-- arrays and structs call new without deleting them (may have memory leaks)
+- arrays and strings call new without calling delete (may have memory leaks)
