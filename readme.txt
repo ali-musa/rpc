@@ -18,3 +18,7 @@ Files provided and required for the make other than xxx.idl, xxx.cpp, xxxclient.
 - rpcstubhelper.h
 - rpcstubhelper.cpp
 - idl_to_json.cpp
+
+Known bugs:
+- float conversion to network order and vice versa not implmented
+- arrays and structs call new without deleting them (may have memory leaks)
