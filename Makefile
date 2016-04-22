@@ -2,19 +2,10 @@
 #
 #    Copyright 2012 - Noah Mendelsohn
 #
-#
-# Useful targets:
-#
-#
-#    pingstreamclient  - demonstration message ping client using TCP streams
-#    pingstreamserver  - demonstration message ping server
-#    simplefunctionclient - sample RPC client
-#    simplefunctionserver - sample RPC server
-#    idldeclarationtst      - demonstrates the IDL parsing framework
-#
-#    clean       - clean out all compiled object and executable files
-#    all         - (default target) make sure everything's compiled
-#
+#			USAGE: 
+#					To make the client: make <idl file name without extension>client
+#					To make the server: make <idl file name without extension>server
+
 
 # Do all C++ compies with g++
 CPP = g++
@@ -40,70 +31,36 @@ LDFLAGS =
 INCLUDES = $(C150LIB)c150streamsocket.h $(C150LIB)c150network.h $(C150LIB)c150exceptions.h $(C150LIB)c150debug.h \
 $(C150LIB)c150utility.h $(C150LIB)c150grading.h $(C150IDSRPC)IDLToken.h $(C150IDSRPC)tokenizeddeclarations.h  \
 $(C150IDSRPC)tokenizeddeclaration.h $(C150IDSRPC)declarations.h $(C150IDSRPC)declaration.h $(C150IDSRPC)functiondeclaration.h \
-$(C150IDSRPC)typedeclaration.h $(C150IDSRPC)arg_or_member_declaration.h rpcproxyhelper.h rpcstubhelper.h simplefunction.idl \
-arithmetic.idl floatarithmetic.idl structs.idl
-
-all: pingstreamclient pingstreamserver idldeclarationtst arithmeticclient arithmeticserver floatarithmeticclient floatarithmeticserver structsclient structsserver simplefunctionclient simplefunctionserver idl_to_json 
+$(C150IDSRPC)typedeclaration.h $(C150IDSRPC)arg_or_member_declaration.h rpcproxyhelper.h rpcstubhelper.h
 
 ########################################################################
 #
-#     Adaptations of pingclient and pingserver to illustrate
-#     use of COMP 150-IDS dgmstreamsocket class (which supports
-#     TCP streams as opposed to UDP datagrams)
+#          General rules for building any client and server
+#
+#     Given any xxx.idl, these rules will build xxxclient and xxxserver
+#
+#     THESE RULES ARE SUPPLIED COMMENTED BECAUSE THEY WILL BREAK
+#     IF USED BEFORE rpcgenerate IS AVAILABLE.
+#
+#     WHEN YOUR RPCGENERATE IS WORKING, DO THE FOLLOWING
+#
+#       1) Uncomment the rules below
+#
+#       2) Add to each of the dependency lists and the g++ invocations
+#          any .o files that you need to link into clients and servers
+#          respectively.
+#
 #
 ########################################################################
 
-pingstreamclient: pingstreamclient.o  $(C150AR) $(C150IDSRPCAR) $(INCLUDES)
-	$(CPP) -o pingstreamclient pingstreamclient.o $(C150AR) $(C150IDSRPCAR) 
+# Compile / link any client executable: 
+%client: %.o %.proxy.o rpcserver.o rpcproxyhelper.o %client.o %.proxy.o
+	$(CPP) -o $@ $@.o rpcproxyhelper.o $*.proxy.o  $(C150AR) $(C150IDSRPCAR) 
 
+# Compile / link any server executable:
+%server: %.o %.stub.o rpcserver.o rpcstubhelper.o %.stub.o
+	$(CPP) -o $@ rpcserver.o $*.stub.o $*.o rpcstubhelper.o $(C150AR) $(C150IDSRPCAR) 
 
-pingstreamserver: pingstreamserver.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o pingstreamserver pingstreamserver.o $(C150AR) $(C150IDSRPCAR) 
-
-
-########################################################################
-#
-#          Sample RPC client and server applications
-#
-#     Demonstrating remote calls to functions as declared in simplefunctions.idl
-#
-#     The proxies and stubs used here are hand generated, but eventually
-#     your rpcgenerate program will (should) generate them automatically
-#     from any idl
-#
-########################################################################
-
-simplefunctionclient: simplefunctionclient.o rpcproxyhelper.o simplefunction.proxy.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o simplefunctionclient simplefunctionclient.o rpcproxyhelper.o simplefunction.proxy.o  $(C150AR) $(C150IDSRPCAR) 
-
-# The following is NOT a mistake. The main program for any of the rpc servers
-# is rpcserver.o.  This way, we can make a different one for each set 
-# of functions, by linking the right specific stugs (in this case
-# simplefunction.stub.o)
-simplefunctionserver: simplefunction.stub.o rpcserver.o rpcstubhelper.o simplefunction.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o simplefunctionserver rpcserver.o simplefunction.stub.o simplefunction.o rpcstubhelper.o $(C150AR) $(C150IDSRPCAR) 
-
-#..............................................................................................................................
-arithmeticclient: arithmeticclient.o rpcproxyhelper.o arithmetic.proxy.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o arithmeticclient arithmeticclient.o rpcproxyhelper.o arithmetic.proxy.o  $(C150AR) $(C150IDSRPCAR) 
-
-arithmeticserver: arithmetic.stub.o rpcserver.o rpcstubhelper.o arithmetic.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o arithmeticserver rpcserver.o arithmetic.stub.o arithmetic.o rpcstubhelper.o $(C150AR) $(C150IDSRPCAR) 
-
-
-#..............................................................................................................................
-floatarithmeticclient: floatarithmeticclient.o rpcproxyhelper.o floatarithmetic.proxy.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o floatarithmeticclient floatarithmeticclient.o rpcproxyhelper.o floatarithmetic.proxy.o  $(C150AR) $(C150IDSRPCAR) 
-
-floatarithmeticserver: floatarithmetic.stub.o rpcserver.o rpcstubhelper.o floatarithmetic.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o floatarithmeticserver rpcserver.o floatarithmetic.stub.o floatarithmetic.o rpcstubhelper.o $(C150AR) $(C150IDSRPCAR)
-
-#..............................................................................................................................
-structsclient: structsclient.o rpcproxyhelper.o structs.proxy.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o structsclient structsclient.o rpcproxyhelper.o structs.proxy.o  $(C150AR) $(C150IDSRPCAR) 
-
-structsserver: structs.stub.o rpcserver.o rpcstubhelper.o structs.o  $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o structsserver rpcserver.o structs.stub.o structs.o rpcstubhelper.o $(C150AR) $(C150IDSRPCAR)
 
 
 ########################################################################
@@ -125,8 +82,9 @@ structsserver: structs.stub.o rpcserver.o rpcstubhelper.o structs.o  $(C150AR) $
 #
 ########################################################################
 
-# %.proxy.cpp %.stub.cpp:%.idl $(RPCGEN)
-#	$(RPCGEN) $<
+%.proxy.cpp %.stub.cpp:%.idl idl_to_json $(RPCGEN)
+	$(RPCGEN) $<
+
 
 ########################################################################
 #
@@ -144,8 +102,8 @@ structsserver: structs.stub.o rpcserver.o rpcstubhelper.o structs.o  $(C150AR) $
 #
 ########################################################################
 
-idldeclarationtst: idldeclarationtst.o $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
-	$(CPP) -o idldeclarationtst idldeclarationtst.o $(C150AR) $(C150IDSRPCAR) 
+# idldeclarationtst: idldeclarationtst.o $(C150AR) $(C150IDSRPCAR)  $(INCLUDES)
+# 	$(CPP) -o idldeclarationtst idldeclarationtst.o $(C150AR) $(C150IDSRPCAR) 
 
 ########################################################################
 #

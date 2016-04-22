@@ -1,2 +1,3 @@
-int sqrt(int x[24], int y[24]);
-
+void func1();
+void func2();
+void func3();

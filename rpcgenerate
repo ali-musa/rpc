@@ -15,65 +15,98 @@ types_created = [];
 proxy=""
 stub=""
 
+#global string to maintain dispatchFunction
+dispatchFunction_string = ""
+
 def main():
-	try:
+	global dispatchFunction_string, proxy, stub
+	# try:
 		#
 		#     Make sure invoked properly
 		#
-		if len(sys.argv) != 2:
-			raise "Wrong number of arguments"
+	if len(sys.argv) != 2:
+		raise "Wrong number of arguments"
 
-		#
-		#     Make sure file exists and is readable
-		#
-		filename = sys.argv[1]
-		if (not os.path.isfile(filename)):
-			print >> sys.stderr, "Path %s does not designate a file" % filename
-			raise "No file named " + filename
-		if (not os.access(filename, os.R_OK)):
-			print >> sys.stderr, "File %s is not readable" % filename
-			raise "File " + filename + " not readable"
+	#
+	#     Make sure file exists and is readable
+	#
+	filename = sys.argv[1]
+	if (not os.path.isfile(filename)):
+		print >> sys.stderr, "Path %s does not designate a file" % filename
+		raise "No file named " + filename
+	if (not os.access(filename, os.R_OK)):
+		print >> sys.stderr, "File %s is not readable" % filename
+		raise "File " + filename + " not readable"
 
-		#
-		#     Parse declarations into a Python dictionary
-		#
-		# decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
+	
+	init_stub(filename)
+	init_proxy(filename)
+	
+	#
+	#     Parse declarations into a Python dictionary
+	#
+	decls = json.loads(subprocess.check_output(["./idl_to_json", filename]))
 
+	# #
+	# # Loop printing each function signature
+	# #
+	for  fname, fsig in decls["functions"].iteritems():
+		# make send recv for return type
+		make_send_recv(str(fsig["return_type"]),decls["types"])
+		proxy_function_string = str(fsig["return_type"])+" "+str(fname)+"("
+		proxy_function_input_arg_list = []
+		proxy_function_sig_string = "  send_char_ptr(\""+str(fname)+"\");\n"
 
+		#add function in dispatch function string
+		dispatchFunction_string+="    else if (strcmp(function_name,\""+str(fname)+"\") == 0) {\n      __"+str(fname)+"();\n    }\n"
+		stub_function_string = "void __"+str(fname)+"(){\n"
+		stub_function_input_arg_list =[]
 
-		# #
-		# # Loop printing each function signature
-		# #
-		# print decls["types"]
-		# for  fname, fsig in decls["functions"].iteritems(): 
+		#make send recv for each argument type
+		for arg in fsig["arguments"]:
+			isArray = 0
+			if (decls["types"][str(arg["type"])]["type_of_type"] == "array"):
+				isArray =1
+				
+			make_send_recv(str(arg["type"]),decls["types"])
+			arg_syntax = str(arg["type"]) + " " + str(arg["name"])
+			if isArray:
+				arg_syntax = get_array_root_type(str(arg["type"]),decls["types"]) \
+				+ get_array_type_pointers(str(arg["type"]),decls["types"]) \
+				+ " " +str(arg["name"])+" = new "+str(arg["type"]).replace("_","")
+
+			stub_function_string +="  "+arg_syntax+";\n" #create local input arg type
+			stub_function_string +="  recv_"+get_valid_c_variable_syntax(str(arg["type"]))+"(&"+str(arg["name"])+");\n" #recv input arg type
+			stub_function_input_arg_list.append(str(arg["name"]))
+			proxy_function_input_arg_list.append(arg_syntax)
+			proxy_function_sig_string += "  send_"+get_valid_c_variable_syntax(str(arg["type"]))+"("+str(arg["name"])+");\n" #send input arg
 			
-		# 	# Python Array of all args (each is a hash with keys "name" and "type")
-		# 	args = fsig["arguments"]
-		# 	# print args;
-		# 	# break
-			
-		# 	# Make a string of form:  "type1 arg1, type2 arg2" for use in function sig
-		# 	argstring = ', '.join([a["type"] + ' ' + a["name"] for a in args])
+		proxy_function_sig_string+="  "+str(fsig["return_type"])+" ret_val;\n"
+		proxy_function_sig_string+="  recv_"+str(fsig["return_type"])+"(&ret_val);\n"
+		proxy_function_sig_string+="  return ret_val;\n"
+		
+		proxy_function_string+=', '.join(proxy_function_input_arg_list)+") {\n"
+		proxy_function_string+=proxy_function_sig_string
+		proxy_function_string+="}\n\n"
 
-		# 	# print the function signature
-		# 	print "%s %s(%s)" % (fsig["return_type"], fname, argstring)
-		# 	# break
+		proxy+=proxy_function_string
 
-		# for  tname, ttype in decls["functions"].iteritems():
+		
+		#make call for local function
+		stub_function_string +="  "+str(fsig["return_type"]) + " ret_val = "+str(fname)+"("+', '.join(stub_function_input_arg_list)+");\n"
+		#send returned value
+		stub_function_string +="  send_"+str(fsig["return_type"]) + "(ret_val);\n"
+		stub_function_string+="}\n\n"
 
-		init_stub(filename)
-		init_proxy(filename)
-		make_int_send_recv()
-
-
-		create_proxy_file(filename)
-		create_stub_file(filename)
+		stub+=stub_function_string # add to global stub string
 
 
-	except Exception as e:
-		print >> sys.stderr, "Error: %s" % e
+	create_proxy_file(filename)
+	create_stub_file(filename)
 
 
+	# except Exception as e:
+	# 	print >> sys.stderr, "Error: %s" % e
 
 
 
@@ -87,13 +120,13 @@ def main():
 def init_proxy(idlfilename):
 	global proxy
 	includes_string = "using namespace std;\n#include \"rpcproxyhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
-	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCPROXYSOCKET->write(char_ptr, strlen(char_ptr)+1)\n}\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCPROXYSOCKET->write(char_ptr, strlen(char_ptr)+1);\n}\n\n"
 	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
 // next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
 // Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
 \n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCPROXYSOCKET-> read(bufp, 1);  // read a byte\
 \n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
-\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {}\n  else {\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {\n    if (RPCPROXYSOCKET-> eof()) {}\n    else {\
 \n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
 // If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
 \n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
@@ -112,54 +145,76 @@ def init_proxy(idlfilename):
 def init_stub(idlfilename):
 	global stub
 	includes_string = "using namespace std;\n#include \"rpcstubhelper.h\"\n#include <cstdio>\n#include <string>\n#include \"" + str(idlfilename) + "\"\n\n"
-	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1)\n}\n\n"
+	send_char_ptr_string = "void send_char_ptr(const char* char_ptr)\n{\n\tRPCSTUBSOCKET->write(char_ptr, strlen(char_ptr)+1);\n}\n\n"
 	recv_char_ptr_string = "void recv_char_ptr(char* char_ptr, unsigned int char_size) {\n  unsigned int i;\n  char *bufp;    \
 // next char to read\n  bool readnull;\n  ssize_t readlen;             // amount of data read from socket\n  \n  //\n  \
 // Read a message from the stream\n  // -1 in size below is to leave room for null\n  //\n  readnull = false;\
 \n  bufp = char_ptr;\n  for (i=0; i< char_size; i++) {\n    readlen = RPCSTUBSOCKET-> read(bufp, 1);  // read a byte\
 \n    // check for eof or error\n    if (readlen == 0) {\n      break;\n    }\n    // check for null and bump buffer pointer\
-\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {}\n  else {\
+\n    if (*bufp++ == '\\0') {\n      readnull = true;\n      break;\n    }\n  }\n  \n  if (readlen == 0) {\n    if (RPCSTUBSOCKET-> eof()) {}\n    else {\
 \n      throw C150Exception(\"unexpected zero length read without eof\");\n    }\n  }\n\n  //\n  \
 // If we didn't get a null, input message was poorly formatted\n  //\n  else if(!readnull) \
 \n    throw C150Exception(\"string not null terminated or too long\");\n}\n\n"
 	stub = includes_string + send_char_ptr_string + recv_char_ptr_string
+	initialize_dispatchFunction_string()
 
 
 #
-#		 make_send_recv(typ, proxy, stub)
+#		 make_send_recv(typ, types_dict)
 #
-# takes in a type string, proxy string, stub sting and a types_dict
+# takes in a type string and a types_dict
 # and makes the send and receive for the type in both the proxy and stub
 # by recursively going in a dfs manner through the types_dict.
 # builtin types are leaves
 # we do not revisit a visited node (i.e. do not re-create a type already created)
 #
-def make_send_recv(typ, proxy, stub, types_dict):
-	global types_created
+def make_send_recv(typ, types_dict):
+	global types_created, proxy, stub
 	if typ in types_created: # check if we have already visited
 		return
-
 	type_of_type = types_dict[typ]["type_of_type"]
-	if type_of_type is "builtin":
-		if typ is "void":
-			pass
-		elif typ is "int":
+	if str(type_of_type) == "builtin":
+		if typ == "void":
+			pass #do nothing
+		elif typ == "int":
 			#make int send recv
 			make_int_send_recv()
-		elif typ is "float":
+		elif typ == "float":
 			#make float send recv
-			raise NotImplementedError
-		elif typ is "string":
+			make_float_send_recv()
+		elif typ == "string":
 			#make string send recv
-			raise NotImplementedError
-
-	elif type_of_type is "struct": 		
+			make_string_send_recv()
+	elif type_of_type == "struct":
+		print "making struct send recv"
+		send_struct_string = "void send_"+typ+"("+typ+" "+typ+"_val) {\n"
+		recv_struct_string = "void recv_"+typ+"("+typ+"* "+typ+"_ptr) {\n"
 		for member in types_dict[typ]["members"]: # for each member type recurse
-			raise NotImplementedError
-
-
-
-
+			send_struct_string+="  send_"+str(member["type"])+"("+typ+"_val."+str(member["name"])+");\n"
+			recv_struct_string+="  recv_"+str(member["type"])+"(&(*"+typ+"_ptr)."+str(member["name"])+");\n"
+			make_send_recv(str(member["type"]),types_dict)
+		send_struct_string+="}\n\n"
+		recv_struct_string+="}\n\n"
+		proxy+=send_struct_string
+		stub+=send_struct_string
+		proxy+=recv_struct_string
+		stub+=recv_struct_string
+	elif type_of_type == "array":
+		print "making array send recv"
+		make_send_recv(str(types_dict[typ]["member_type"]),types_dict)
+		c_var = get_valid_c_variable_syntax(typ)
+		c_typ = typ.replace("__","")
+		json_arg_str_val = typ + " val"
+		json_arg_str_ptr = typ + " ptr"
+		print convert_to_array_syntax_with_ptr(json_arg_str_ptr)
+		send_array_string = "void send_"+c_var+"("+convert_to_array_syntax(json_arg_str_val).replace("val",c_var+"_val")+") {\n  for(int i =0; i<"+str(types_dict[typ]["element_count"])+"; i++) \
+{\n    send_"+get_valid_c_variable_syntax(str(types_dict[typ]["member_type"]))+"("+c_var+"_val[i]);\n  }\n}\n\n"
+		recv_array_string = "void recv_"+c_var+"("+convert_to_array_syntax_with_ptr(json_arg_str_ptr).replace("ptr",c_var+"_ptr")+") {\n  for(int i =0; i<"+str(types_dict[typ]["element_count"])+"; i++) \
+{\n    recv_"+get_valid_c_variable_syntax(str(types_dict[typ]["member_type"]))+"(&((*"+c_var+"_ptr)[i]));\n  }\n}\n\n"
+		proxy+=send_array_string
+		stub+=send_array_string
+		proxy+=recv_array_string
+		stub+=recv_array_string
 	types_created.append(typ)
 
 
@@ -172,6 +227,7 @@ def create_proxy_file(idlfilename):
 
 def create_stub_file(idlfilename):
 	global stub
+	make_dispatchFunction()
 	fp = open(str(idlfilename)[0:str(idlfilename).find(".idl")]+".stub.cpp", 'w')
 	fp.write(stub)
 	fp.close()
@@ -179,6 +235,7 @@ def create_stub_file(idlfilename):
 
 def make_int_send_recv():
 	global proxy, stub
+	print "making int send recv"
 	send_int_string = "void send_int(int int_val)\n{\n  int_val = htonl(int_val); // convert to network order\
 \n  RPCSTUBSOCKET->write(((const char *)(&int_val)),sizeof(int)); // send size of int\n}\n\n"
 	recv_int_string = "void recv_int(int* int_ptr)\n{\n  ssize_t readlen=0;             // amount of data read from socket\
@@ -190,8 +247,82 @@ def make_int_send_recv():
 	proxy+=send_int_string.replace("STUB","PROXY")
 	proxy+=recv_int_string.replace("STUB","PROXY")
 
+def make_float_send_recv():
+	global proxy, stub
+	print "making float send recv"
+	send_float_string = "void send_float(float float_val)\n{\n  \
+RPCSTUBSOCKET->write(((const char *)(&float_val)),sizeof(float)); // send size of float\n}\n\n"
+	recv_float_string = "void recv_float(float* float_ptr)\n{\n  ssize_t readlen=0;             \
+// amount of data read from socket\n  char float_buf[sizeof(float)];\n\n  while(readlen!=sizeof(float))\
+\n  { \n    readlen+=RPCSTUBSOCKET->read(float_buf+readlen,sizeof(float)-readlen); // read size of float\n  }\
+\n  *float_ptr = *((float*)(&float_buf));\n}\n\n"
+	stub+=send_float_string
+	stub+=recv_float_string
+	proxy+=send_float_string.replace("STUB","PROXY")
+	proxy+=recv_float_string.replace("STUB","PROXY")
 
+def make_string_send_recv():
+	global proxy, stub, types_created
+	print "making string send recv"
+	if "int" not in types_created:
+		make_int_send_recv() #should have int to send the length of string
+		types_created.append("int")
+	send_string_string = "void send_string(string string_ptr)\n{\n  char* ptr = new char[strlen(string_ptr.c_str())+1];\n  memcpy(ptr,string_ptr.c_str(),strlen(string_ptr.c_str()));\n  ptr[strlen(string_ptr.c_str())] = '\\0';\n  send_int(strlen(string_ptr.c_str()));\n  send_char_ptr(ptr);\n  delete ptr;\n}\n\n"
+	recv_string_string ="void recv_string(string* string_ptr_ptr)\n{\n  int len;\n  recv_int(&len);\n  char* char_buf_ptr = new char[len+1];\n  recv_char_ptr(char_buf_ptr,len+1);\n  *string_ptr_ptr = string(char_buf_ptr);\n}\n\n"
+	stub+=send_string_string
+	stub+=recv_string_string
+	proxy+=send_string_string
+	proxy+=recv_string_string
 
+def convert_to_array_syntax(json_syntax):
+	syntax_list = json_syntax.replace("__","").replace("["," ").replace("]","").split(" ")
+	print syntax_list
+	c_syntax = str(syntax_list[0])+" "+str(syntax_list[-1])
+	for element_count in syntax_list[1:-1]:
+		print element_count
+		c_syntax+="["+str(element_count)+"]"
+	return c_syntax
+
+def convert_to_array_syntax_with_ptr(json_syntax):
+	syntax_list = json_syntax.replace("__","").replace("["," ").replace("]","").split(" ")
+	print syntax_list
+	c_syntax = str(syntax_list[0])+"* "+str(syntax_list[-1])
+	for element_count in syntax_list[1:-1]:
+		print element_count
+		c_syntax+="["+str(element_count)+"]"
+	return c_syntax
+
+def get_array_type_pointers(typ, types_dict):
+	#assuming nested arrays are of the same type
+	if str(types_dict[typ]["type_of_type"]) =="array": 
+		return "*"+get_array_type_pointers(str(types_dict[typ]["member_type"]),types_dict) 
+	else:
+		return ""
+
+def get_array_root_type(typ, types_dict):
+	#assuming nested arrays are of the same type
+	if str(types_dict[typ]["type_of_type"]) =="array": 
+		return get_array_root_type(str(types_dict[typ]["member_type"]),types_dict) 
+	else:
+		return typ
+
+def get_valid_c_variable_syntax(array_syntax):
+	local_array_syntax = array_syntax
+	return local_array_syntax.replace("[","_").replace("]","_")
+
+def initialize_dispatchFunction_string():
+	global dispatchFunction_string
+	dispatchFunction_string="//\n//                         dispatchFunction()\n//\n//   Called when we're ready to read a new invocation\
+ request from the stream\n//\n\nvoid dispatchFunction() {\n\n\n  char function_name[256];\
+\n  recv_char_ptr(function_name,256);\n  printf(\"invoking function: %s\\n\", function_name);\n  //\
+\n  // We've read the function name, call the stub for the right one\
+\n  // The stub will invoke the function and send response.\n  //\n\n  if (!RPCSTUBSOCKET-> eof()) {\
+\n    if (strcmp(function_name,\"\")==0) //dummy test\n    {\n      printf(\"no function\\n\");\n      return;\n    }\n"
+
+def make_dispatchFunction():
+	global dispatchFunction_string, stub
+	dispatchFunction_string+="  }\n}\n\n"
+	stub += dispatchFunction_string
 
 
 if __name__=="__main__":

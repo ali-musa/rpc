@@ -51,7 +51,20 @@ int main(int argc, char *argv[]) {
        result = area(r);                          // remote call (we hope!)
        printf("Returned from area(r). Result=%i\n",result);
 
+       ThreePeople tppl;
+       tppl.p1.firstname = "first";
+       tppl.p1.lastname = "person";
+       tppl.p1.age = 10;
+       tppl.p2.firstname = "second";
+       tppl.p2.lastname = "person";
+       tppl.p2.age = 20;
+       tppl.p3.firstname = "third";
+       tppl.p3.lastname = "person";
+       tppl.p3.age = 30;
 
+       printf("Calling findPerson, should return second person with age 20\n");
+       Person p = findPerson(tppl);                          // remote call (we hope!)
+       printf("Returned from findPerson with name = %s %s\t age = %i\n",p.firstname.c_str(),p.lastname.c_str(),p.age);
        // 
        // Call (possibly remote) subtract
        //
@@ -82,7 +95,7 @@ int main(int argc, char *argv[]) {
      catch (C150Exception e) {
        // Write to debug log
        c150debug->printf(C150ALWAYSLOG,"Caught C150Exception: %s\n",
-			 e.formattedExplanation().c_str());
+       e.formattedExplanation().c_str());
        // In case we're logging to a file, write to the console too
        cerr << argv[0] << ": caught C150NetworkException: " << e.formattedExplanation() << endl;
      }
@@ -167,5 +180,5 @@ void setUpDebugLogging(const char *logname, int argc, char *argv[]) {
      // for the system to run quietly without producing debug output.
      //
      c150debug->enableLogging(C150ALLDEBUG | C150RPCDEBUG | C150APPLICATION | C150NETWORKTRAFFIC | 
-			      C150NETWORKDELIVERY); 
+            C150NETWORKDELIVERY); 
 }

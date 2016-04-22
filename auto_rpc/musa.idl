@@ -1,3 +1,0 @@
-struct rectangle {int x; int y;};
-
-int area(rectangle r);
