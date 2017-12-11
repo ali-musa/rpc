@@ -1,3 +1,6 @@
+* Note: This is based on Noah Mendelsohn's socket libraries. 
+The folder files/ may help to setup the correct environment for this to compile *
+
 This program is to generate the proxy and stub for a remote procedure call.
 
 Please first define: 
